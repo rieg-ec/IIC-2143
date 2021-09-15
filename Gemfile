@@ -42,6 +42,7 @@ gem 'devise'
 gem 'dotenv-rails'
 gem 'enumerize'
 gem 'shoulda-matchers', '~> 5.0'
+gem 'webpacker'
 
 group :development, :test do
   gem 'pry-byebug'
