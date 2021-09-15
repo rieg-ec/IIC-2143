@@ -41,6 +41,7 @@ gem 'active_skin', github: 'SoftwareBrothers/active_skin'
 gem 'devise'
 gem 'dotenv-rails'
 gem 'enumerize'
+gem 'shoulda-matchers', '~> 5.0'
 
 group :development, :test do
   gem 'pry-byebug'
