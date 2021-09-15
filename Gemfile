@@ -45,6 +45,7 @@ gem 'shoulda-matchers', '~> 5.0'
 gem 'webpacker'
 
 group :development, :test do
+  gem 'pry-rails'
   gem 'pry-byebug'
   gem 'rubocop'
   gem 'rubocop-performance'
