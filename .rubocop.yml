@@ -1,0 +1,16 @@
+require:
+  - rubocop-rspec
+  - rubocop-rails
+  - rubocop-performance
+AllCops:
+  NewCops: enable
+  Exclude:
+    - 'vendor/**/*'
+    - 'db/**/*'
+    - 'bin/**/*'
+
+  TargetRubyVersion: 2.6
+Rails:
+  Enabled: true
+Performance:
+  Enabled: true

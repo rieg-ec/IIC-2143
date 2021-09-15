@@ -1,0 +1,17 @@
+@import 'activeadmin_addons/all';
+@import 'active_admin/mixins';
+@import 'active_admin/base';
+
+$skinActiveColor: #001cee;
+$skinHeaderBck: #002744;
+$panelHeaderBck: #002744;
+
+@import 'active_skin';
+
+.dashboard-table__label {
+  width: 20%;
+}
+
+.dashboard-table__data {
+  width: 80%;
+}
