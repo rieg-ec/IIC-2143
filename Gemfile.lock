@@ -345,7 +345,7 @@ GEM
       nokogiri (~> 1.8)
 
 PLATFORMS
-  -darwin-20
+  ruby
 
 DEPENDENCIES
   active_skin!
