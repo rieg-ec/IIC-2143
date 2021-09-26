@@ -1,15 +1,14 @@
-version: '3.9'
+version: '3'
 services:
   postgresql:
-    image: postgres:13.4
+    image: postgres:11.3
+    ports:
+      - 5432
     environment:
-      POSTGRES_USER: 'postgres'
+      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: ''
     env_file: .env.development
     volumes:
-      - dbdata:/var/lib/postgresql/data
-    ports:
-      - 5432
-
+      - postgresql_data:/var/lib/postgresql/data
 volumes:
-  dbdata:
+  postgresql_data:
