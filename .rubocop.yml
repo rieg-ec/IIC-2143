@@ -14,3 +14,5 @@ Rails:
   Enabled: true
 Performance:
   Enabled: true
+Style/Documentation:
+  Enabled: false
