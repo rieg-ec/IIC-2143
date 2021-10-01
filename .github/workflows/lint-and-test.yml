@@ -1,0 +1,81 @@
+env:
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: ''
+  POSTGRES_DB: postgres
+
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  rubocop:
+    name: Run Rubocop
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Run Rubocop
+        run: bundle exec rubocop -c .rubocop.yml
+
+  rspec:
+    needs: rubocop
+    runs-on: ubuntu-20.04
+
+    services:
+      postgres:
+        image: postgres:11.3-alpine
+        env:
+          POSTGRES_USER: ${{ env.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ env.POSTGRES_PASSWORD }}
+          POSTGRES_DB: ${{ env.POSTGRES_DB }}
+        ports:
+          - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
+    # steps:
+    # - name: Read .nvmrc
+    #   run: echo ::set-output name=NODE_VERSION::$(cat .node-version)
+    #   id: node-version
+
+    #   - uses: actions/checkout@v2
+    #   - uses: actions/setup-node@v2
+    #     with:
+    #       node-version: ${{ env.NODE_VERSION }}
+    #       cache: 'npm'
+
+    #   - run: npm install -g yarn
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14
+      - run: npm install -g yarn
+
+      - name: Install yarn dependencies
+        run: yarn && CI=true
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Setup DB, Run tests
+        env:
+          RAILS_ENV: test
+        run: |
+          bin/rails db:create db:schema:load
+          bundle exec rspec
+
+      - name: Upload coverage results
+        uses: actions/upload-artifact@master
+        if: always()
+        with:
+          name: coverage-report
+          path: coverage
