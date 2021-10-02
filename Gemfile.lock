@@ -241,6 +241,7 @@ GEM
       actionpack (>= 5.0)
       railties (>= 5.0)
     rexml (3.2.5)
+    rolify (6.0.0)
     rspec-core (3.10.1)
       rspec-support (~> 3.10.0)
     rspec-expectations (3.10.1)
@@ -379,6 +380,7 @@ DEPENDENCIES
   pundit
   rack-cors (~> 1.1)
   rails (~> 5.2.4)
+  rolify
   rspec-rails (~> 4.0.0)
   rubocop
   rubocop-performance

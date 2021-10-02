@@ -47,6 +47,7 @@ gem 'pundit'
 gem 'rack-cors', '~> 1.1'
 gem 'shoulda-matchers', '~> 5.0'
 gem 'webpacker'
+gem 'rolify'
 
 group :development, :test do
   gem 'factory_bot_rails'
