@@ -6,6 +6,9 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+
+  has_many :course_users, dependent: :destroy
+  has_many :courses, through: :course_users
 end
 
 # == Schema Information
