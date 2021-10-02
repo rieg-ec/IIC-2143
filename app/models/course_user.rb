@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CourseUser < ApplicationRecord
   extend Enumerize
 
@@ -6,7 +8,7 @@ class CourseUser < ApplicationRecord
 
   validates :user, :course, :role, presence: true
 
-  enumerize :role, in: [:student, :teacher]
+  enumerize :role, in: %i[student teacher]
 end
 
 # == Schema Information

@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 class Course < ApplicationRecord
   extend Enumerize
 
-  CATEGORIES = %i{
+  CATEGORIES = %i[
     math sports pets cooking
-  }
+  ].freeze
 
   enumerize :category, in: CATEGORIES
 

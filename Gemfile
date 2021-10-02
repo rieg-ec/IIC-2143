@@ -45,9 +45,9 @@ gem 'dotenv-rails'
 gem 'enumerize'
 gem 'pundit'
 gem 'rack-cors', '~> 1.1'
+gem 'rolify'
 gem 'shoulda-matchers', '~> 5.0'
 gem 'webpacker'
-gem 'rolify'
 
 group :development, :test do
   gem 'factory_bot_rails'
@@ -61,11 +61,11 @@ group :development, :test do
 end
 
 group :development do
+  gem 'annotate'
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'web-console', '>= 3.3.0'
-  gem 'annotate'
 end
 
 group :test do
