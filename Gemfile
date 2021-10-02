@@ -49,6 +49,7 @@ gem 'rack-cors', '~> 1.1'
 gem 'rolify'
 gem 'shoulda-matchers', '~> 5.0'
 gem 'webpacker'
+gem 'faker'
 
 group :development, :test do
   gem 'factory_bot_rails'
