@@ -14,7 +14,7 @@ class Course < ApplicationRecord
   has_many :students, -> { where(course_users: { role: :student }) }, through: :course_users, source: :user, inverse_of: :courses_enrolled
   has_many :teachers, -> { where(course_users: { role: :teacher }) }, through: :course_users, source: :user, inverse_of: :courses_owned
 
-  has_many :reviews, dependent: :destroy
+  has_many :reviews, through: :course_users, source: :review, dependent: :destroy
   has_many :lectures, dependent: :destroy
   has_many :questions,  dependent: :destroy
 

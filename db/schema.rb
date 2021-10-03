@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_03_132935) do
+ActiveRecord::Schema.define(version: 2021_10_03_163751) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,13 +79,6 @@ ActiveRecord::Schema.define(version: 2021_10_03_132935) do
     t.date "end_date"
   end
 
-  create_table "courses_users", id: false, force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "course_id", null: false
-    t.index ["course_id"], name: "index_courses_users_on_course_id"
-    t.index ["user_id"], name: "index_courses_users_on_user_id"
-  end
-
   create_table "lectures", force: :cascade do |t|
     t.bigint "course_id"
     t.string "title"
@@ -95,24 +88,20 @@ ActiveRecord::Schema.define(version: 2021_10_03_132935) do
   end
 
   create_table "questions", force: :cascade do |t|
-    t.bigint "course_id"
-    t.bigint "user_id"
     t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["course_id"], name: "index_questions_on_course_id"
-    t.index ["user_id"], name: "index_questions_on_user_id"
+    t.bigint "course_user_id"
+    t.index ["course_user_id"], name: "index_questions_on_course_user_id"
   end
 
   create_table "reviews", force: :cascade do |t|
-    t.bigint "course_id"
-    t.bigint "user_id"
     t.float "rating"
     t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["course_id"], name: "index_reviews_on_course_id"
-    t.index ["user_id"], name: "index_reviews_on_user_id"
+    t.bigint "course_user_id"
+    t.index ["course_user_id"], name: "index_reviews_on_course_user_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -151,8 +140,5 @@ ActiveRecord::Schema.define(version: 2021_10_03_132935) do
   add_foreign_key "course_users", "courses"
   add_foreign_key "course_users", "users"
   add_foreign_key "lectures", "courses"
-  add_foreign_key "questions", "courses"
-  add_foreign_key "questions", "users"
-  add_foreign_key "reviews", "courses"
-  add_foreign_key "reviews", "users"
+  add_foreign_key "questions", "course_users"
 end

@@ -27,13 +27,17 @@ FactoryBot.define do
 
     trait :with_questions do
       after(:create) do |course|
-        create_list(:question, 3, course: course, user: course.students.first)
+        course_user = create(:course_user, course: course)
+        create_list(:question, 3, course_user: course_user)
       end
     end
 
     trait :with_reviews do
       after(:create) do |course|
-        create_list(:review, 3, course: course, user: course.students.first)
+        3.times do
+          course_user = create(:course_user, course: course)
+          create(:review, course_user: course_user)
+        end
       end
     end
 

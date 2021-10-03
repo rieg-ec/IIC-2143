@@ -4,9 +4,6 @@ FactoryBot.define do
   factory :course_user do
     user
     course
-  end
-
-  trait :student do
     role { :student }
   end
 

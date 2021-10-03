@@ -6,6 +6,9 @@ class CourseUser < ApplicationRecord
   belongs_to :user
   belongs_to :course
 
+  has_one :review, dependent: :destroy
+  has_many :questions, dependent: :destroy
+
   enumerize :role, in: %i[student teacher]
 
   validates :role, presence: true
