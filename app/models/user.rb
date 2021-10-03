@@ -8,11 +8,12 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :course_users, dependent: :destroy
-  has_many :courses_owned, class_name: 'Course', through: :course_users, source: :course, inverse_of: :teachers
-  has_many :courses_enrolled, class_name: 'Course', through: :course_users, source: :course, inverse_of: :students
+  has_many :courses_owned, through: :course_users, source: :course, inverse_of: :teachers, dependent: :destroy
+  has_many :courses_enrolled, through: :course_users, source: :course, inverse_of: :students, dependent: :nullify
 
-  has_many :questions, dependent: :destroy
-  has_many :reviews, dependent: :destroy
+  has_many :questions, through: :course_users, source: :questions, dependent: :destroy, inverse_of: :author
+  has_many :reviews, through: :course_users, source: :review, dependent: :destroy
+
 
   has_one_attached :avatar
 

@@ -2,7 +2,7 @@
 
 class Question < ApplicationRecord
   belongs_to :course_user
-  has_one :author, through: :course_user, source: :user
+  has_one :author, through: :course_user, source: :user, inverse_of: :questions
 end
 
 # == Schema Information

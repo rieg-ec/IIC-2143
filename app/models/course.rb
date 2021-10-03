@@ -19,8 +19,8 @@ class Course < ApplicationRecord
                       }, through: :course_users, source: :user, inverse_of: :courses_owned
 
   has_many :reviews, through: :course_users, source: :review, dependent: :destroy
+  has_many :questions, through: :course_users, source: :question, dependent: :destroy
   has_many :lectures, dependent: :destroy
-  has_many :questions, dependent: :destroy
 
   scope :active, -> { where('end_date < ?', DateTime.current) }
 
