@@ -10,7 +10,7 @@ FactoryBot.define do
         users_n = 5
         users = create_list(:user, users_n)
         users_n.times do |i|
-          course_user = create(:course_user, user: users[i], course: course)
+          create(:course_user, user: users[i], course: course)
         end
       end
     end
@@ -20,7 +20,7 @@ FactoryBot.define do
         users_n = 2
         users = create_list(:user, users_n)
         users_n.times do |i|
-          course_user = create(:course_user, :teacher, user: users[i], course: course)
+          create(:course_user, :teacher, user: users[i], course: course)
         end
       end
     end

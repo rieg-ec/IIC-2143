@@ -14,7 +14,6 @@ class User < ApplicationRecord
   has_many :questions, through: :course_users, source: :questions, dependent: :destroy, inverse_of: :author
   has_many :reviews, through: :course_users, source: :review, dependent: :destroy
 
-
   has_one_attached :avatar
 
   def avatar_url
