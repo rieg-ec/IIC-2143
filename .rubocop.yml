@@ -17,3 +17,15 @@ Performance:
   Enabled: true
 Style/Documentation:
   Enabled: false
+Metrics/MethodLength:
+  Enabled: false
+Rails/FilePath:
+  Enabled: false
+RSpec/EmptyExampleGroup:
+  Enabled: false
+Metrics/BlockLength:
+  Enabled: false
+Lint/EmptyBlock:
+  Enabled: false
+RSpec/NestedGroups:
+  Enabled: false

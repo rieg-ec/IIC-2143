@@ -43,8 +43,12 @@ gem 'active_skin', github: 'SoftwareBrothers/active_skin'
 gem 'devise'
 gem 'dotenv-rails'
 gem 'enumerize'
+gem 'faker'
+gem 'image_processing', '>= 1.2'
 gem 'pundit'
 gem 'rack-cors', '~> 1.1'
+gem 'rails-controller-testing'
+gem 'rolify'
 gem 'shoulda-matchers', '~> 5.0'
 gem 'webpacker'
 
@@ -60,6 +64,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'annotate'
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
