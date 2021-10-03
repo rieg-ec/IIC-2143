@@ -7,6 +7,8 @@ class CourseUser < ApplicationRecord
   belongs_to :course
 
   enumerize :role, in: %i[student teacher]
+
+  validates :role, presence: true
 end
 
 # == Schema Information
