@@ -15,6 +15,12 @@ class Course < ApplicationRecord
   has_many :reviews, dependent: :destroy
   has_many :lectures, dependent: :destroy
   has_many :questions,  dependent: :destroy
+
+  scope :active, -> { where('end_date < ?', DateTime.current) }
+
+  def duration
+    (Date.parse(created_at.to_s)..end_date).count / 7
+  end
 end
 
 # == Schema Information
@@ -23,6 +29,7 @@ end
 #
 #  id         :bigint           not null, primary key
 #  category   :string
+#  end_date   :date
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
