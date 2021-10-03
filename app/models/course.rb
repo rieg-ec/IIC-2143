@@ -4,7 +4,7 @@ class Course < ApplicationRecord
   extend Enumerize
 
   CATEGORIES = %i[
-    math sports pets cooking
+    math sports pets food
   ].freeze
 
   enumerize :category, in: CATEGORIES
