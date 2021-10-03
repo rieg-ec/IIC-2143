@@ -6,8 +6,6 @@ class CourseUser < ApplicationRecord
   belongs_to :user
   belongs_to :course
 
-  validates :user, :course, :role, presence: true
-
   enumerize :role, in: %i[student teacher]
 end
 

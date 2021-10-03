@@ -10,6 +10,9 @@ class User < ApplicationRecord
   has_many :course_users, dependent: :destroy
   has_many :courses, through: :course_users
 
+  has_many :questions, dependent: :destroy
+  has_many :reviews, dependent: :destroy
+
   has_one_attached :avatar
 
   def avatar_url
@@ -21,6 +24,10 @@ class User < ApplicationRecord
       avatar.variant(resize: '256x256^', extent: '256x256', gravity: 'Center').processed,
       only_path: true
     )
+  end
+
+  def full_name
+    "#{first_name} #{last_name}"
   end
 end
 
