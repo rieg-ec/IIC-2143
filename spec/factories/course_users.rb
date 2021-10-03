@@ -2,8 +2,15 @@
 
 FactoryBot.define do
   factory :course_user do
-    user_id { nil }
-    course_id { nil }
-    role { 'MyString' }
+    user
+    course
+  end
+
+  trait :student do
+    role { :student }
+  end
+
+  trait :teacher do
+    role { :teacher }
   end
 end

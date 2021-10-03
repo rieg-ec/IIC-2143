@@ -17,13 +17,23 @@ FactoryBot.define do
 
     trait :with_teachers do
       after(:create) do |course|
-        create_list(:user, 3, :teacher, course: course)
+        users_n = 2
+        users = create_list(:user, users_n)
+        users_n.times do |i|
+          course_user = create(:course_user, :teacher, user: users[i], course: course)
+        end
       end
     end
 
     trait :with_questions do
       after(:create) do |course|
-        create_list(:question, 3, course: course, user: course.users.first)
+        create_list(:question, 3, course: course, user: course.students.first)
+      end
+    end
+
+    trait :with_reviews do
+      after(:create) do |course|
+        create_list(:review, 3, course: course, user: course.students.first)
       end
     end
 
