@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_02_203048) do
+ActiveRecord::Schema.define(version: 2021_10_03_163751) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,13 +76,32 @@ ActiveRecord::Schema.define(version: 2021_10_02_203048) do
     t.string "category"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.date "end_date"
   end
 
-  create_table "courses_users", id: false, force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "course_id", null: false
-    t.index ["course_id"], name: "index_courses_users_on_course_id"
-    t.index ["user_id"], name: "index_courses_users_on_user_id"
+  create_table "lectures", force: :cascade do |t|
+    t.bigint "course_id"
+    t.string "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["course_id"], name: "index_lectures_on_course_id"
+  end
+
+  create_table "questions", force: :cascade do |t|
+    t.text "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "course_user_id"
+    t.index ["course_user_id"], name: "index_questions_on_course_user_id"
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.float "rating"
+    t.text "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "course_user_id"
+    t.index ["course_user_id"], name: "index_reviews_on_course_user_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -120,4 +139,6 @@ ActiveRecord::Schema.define(version: 2021_10_02_203048) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "course_users", "courses"
   add_foreign_key "course_users", "users"
+  add_foreign_key "lectures", "courses"
+  add_foreign_key "questions", "course_users"
 end
