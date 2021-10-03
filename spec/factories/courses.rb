@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :course do
-    category { [:math, :sports, :food, :pets].sample }
+    category { %i[math sports food pets].sample }
     end_date { DateTime.current + 9.weeks }
 
     trait :with_students do

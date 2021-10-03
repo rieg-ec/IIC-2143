@@ -11,12 +11,16 @@ class Course < ApplicationRecord
 
   has_many :course_users, dependent: :destroy
   has_many :users, through: :course_users
-  has_many :students, -> { where(course_users: { role: :student }) }, through: :course_users, source: :user, inverse_of: :courses_enrolled
-  has_many :teachers, -> { where(course_users: { role: :teacher }) }, through: :course_users, source: :user, inverse_of: :courses_owned
+  has_many :students, lambda {
+                        where(course_users: { role: :student })
+                      }, through: :course_users, source: :user, inverse_of: :courses_enrolled
+  has_many :teachers, lambda {
+                        where(course_users: { role: :teacher })
+                      }, through: :course_users, source: :user, inverse_of: :courses_owned
 
   has_many :reviews, through: :course_users, source: :review, dependent: :destroy
   has_many :lectures, dependent: :destroy
-  has_many :questions,  dependent: :destroy
+  has_many :questions, dependent: :destroy
 
   scope :active, -> { where('end_date < ?', DateTime.current) }
 
