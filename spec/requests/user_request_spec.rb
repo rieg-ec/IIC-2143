@@ -6,7 +6,7 @@ RSpec.describe 'Users', type: :request do
   let(:user) { create(:user) }
   let!(:other_user) { create(:user) }
 
-  describe "GET #index" do
+  describe 'GET #index' do
     def do_request
       get users_path
     end
@@ -38,7 +38,7 @@ RSpec.describe 'Users', type: :request do
     end
   end
 
-  describe "GET #show" do
+  describe 'GET #show' do
     def do_request
       get user_path(user), params: { id: other_user.id }
     end

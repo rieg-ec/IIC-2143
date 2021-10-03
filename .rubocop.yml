@@ -27,3 +27,5 @@ Metrics/BlockLength:
   Enabled: false
 Lint/EmptyBlock:
   Enabled: false
+RSpec/NestedGroups:
+  Enabled: false

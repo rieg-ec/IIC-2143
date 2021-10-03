@@ -33,8 +33,7 @@ class UsersController < ApplicationController
     params.require(:user).permit(
       :avatar,
       :first_name,
-      :last_name,
+      :last_name
     )
   end
-
 end
