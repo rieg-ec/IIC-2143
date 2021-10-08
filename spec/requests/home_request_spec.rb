@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe 'Home', type: :request do
   describe 'GET /' do
-    it 'returns http success' do
+    it 'redirects' do
       get '/'
       expect(response).to have_http_status(:redirect)
     end
