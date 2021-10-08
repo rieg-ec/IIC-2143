@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
-  include Pundit
+  before_action :authenticate_user!
 
   def index
     @users = User.all
