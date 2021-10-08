@@ -5,17 +5,17 @@ Faker::Config.locale = I18n.locale
 module FakeDataLoader
   extend FactoryBot::Syntax::Methods
 
-  USER_PASS = 12_345_678
-
   def self.load
     load_admin
-    load_user
+    load_courses
     true
   end
 
   def self.load_courses
-    5.times do
+    n = 20
+    n.times do |i|
       create(:course, :with_teachers, :with_students, :with_questions, :with_reviews)
+      puts "loading #{i}/#{n}"
     end
   end
 
@@ -31,13 +31,5 @@ module FakeDataLoader
       last_name: 'Doe'
     )
     Rails.logger.debug { "admin: #{admin.email} - pass: #{pass}" }
-  end
-
-  def self.load_user
-    email = 'user@example.com'
-    pass = USER_PASS
-    user = User.find_by(email: email)
-    user ||= User.create(email: email, password: pass, first_name: 'Jhon', last_name: 'Doe')
-    Rails.logger.debug { "user: #{user.email} = pass: #{pass}" }
   end
 end
