@@ -15,7 +15,7 @@ module FakeDataLoader
     n = 20
     n.times do |i|
       create(:course, :with_teachers, :with_students, :with_questions, :with_reviews)
-      puts "loading #{i}/#{n}"
+      Rails.logger.debug { "loading #{i}/#{n}" }
     end
   end
 
