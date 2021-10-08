@@ -7,7 +7,7 @@ FactoryBot.define do
 
     trait :with_students do
       after(:create) do |course|
-        users_n = 5
+        users_n = rand(2..6)
         users = create_list(:user, users_n)
         users_n.times do |i|
           create(:course_user, user: users[i], course: course)
@@ -17,7 +17,7 @@ FactoryBot.define do
 
     trait :with_teachers do
       after(:create) do |course|
-        users_n = 2
+        users_n = rand(1..3)
         users = create_list(:user, users_n)
         users_n.times do |i|
           create(:course_user, :teacher, user: users[i], course: course)
@@ -34,7 +34,7 @@ FactoryBot.define do
 
     trait :with_reviews do
       after(:create) do |course|
-        3.times do
+        rand(1..10).times do
           course_user = create(:course_user, course: course)
           create(:review, course_user: course_user)
         end
