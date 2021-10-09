@@ -1,10 +1,6 @@
 # frozen_string_literal: true
 
 class UserPolicy < ApplicationPolicy
-  def show?
-    admin? || current_user?
-  end
-
   def update?
     admin? || current_user?
   end
