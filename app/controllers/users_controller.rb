@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    authorize user
+    user
   end
 
   def edit
