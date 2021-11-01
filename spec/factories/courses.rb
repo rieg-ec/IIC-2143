@@ -2,6 +2,7 @@
 
 FactoryBot.define do
   factory :course do
+    name { 'MyCourse' }
     category { %i[math sports food pets].sample }
     end_date { DateTime.current + 9.weeks }
 
