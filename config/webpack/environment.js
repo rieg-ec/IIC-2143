@@ -1,6 +1,7 @@
 const { environment } = require('@rails/webpacker');
 const { DefinePlugin } = require('webpack');
 const { VueLoaderPlugin } = require('vue-loader');
+const path = require('path');
 
 environment.plugins.prepend('VueLoaderPlugin', new VueLoaderPlugin());
 
@@ -20,5 +21,14 @@ environment.plugins.prepend(
     __VUE_PROD_DEVTOOLS__: false,
   }),
 );
+
+environment.config.merge({
+  resolve: {
+    alias: {
+      assets: path.resolve('./app/assets'),
+      vue$: 'vue/dist/vue.esm.js',
+    },
+  },
+});
 
 module.exports = environment;
