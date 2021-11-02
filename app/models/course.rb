@@ -24,8 +24,18 @@ class Course < ApplicationRecord
 
   scope :active, -> { where('end_date < ?', DateTime.current) }
 
+  has_one_attached :background
+
   def duration
     (Date.parse(created_at.to_s)..end_date).count / 7
+  end
+
+  def background_url
+    default_background = "https://picsum.photos/640/360"
+
+    return default_background unless background.attached?
+
+    rails_blob_path(background, only_path: true)
   end
 end
 
@@ -36,6 +46,7 @@ end
 #  id         :bigint           not null, primary key
 #  category   :string
 #  end_date   :date
+#  name       :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
