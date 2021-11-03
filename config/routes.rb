@@ -2,6 +2,11 @@
 
 Rails.application.routes.draw do
   resources :users, only: %i[index show edit update]
+  resources :courses, only: %i[index show] do
+    member do
+      post :register_student
+    end
+  end
 
   root to: 'home#index'
 

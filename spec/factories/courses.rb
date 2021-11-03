@@ -35,9 +35,17 @@ FactoryBot.define do
 
     trait :with_reviews do
       after(:create) do |course|
-        rand(1..10).times do
+        rand(2..10).times do
           course_user = create(:course_user, course: course)
           create(:review, course_user: course_user)
+        end
+      end
+    end
+
+    trait :with_lectures do
+      after(:create) do |course|
+        rand(2..8).times do
+          create(:lecture, course: course)
         end
       end
     end

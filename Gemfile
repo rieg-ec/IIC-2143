@@ -52,6 +52,7 @@ gem 'rails-controller-testing'
 gem 'rolify'
 gem 'shoulda-matchers', '~> 5.0'
 gem 'webpacker'
+gem 'active_model_serializers', '~> 0.9.3', require: true
 
 group :development, :test do
   gem 'factory_bot_rails'
@@ -66,7 +67,7 @@ end
 
 group :development do
   gem 'annotate'
-  gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'listen', '>= 3.0.5', '< 4.0'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'web-console', '>= 3.3.0'

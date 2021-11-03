@@ -14,7 +14,14 @@ module FakeDataLoader
   def self.load_courses
     n = 20
     n.times do |i|
-      create(:course, :with_teachers, :with_students, :with_questions, :with_reviews)
+      create(
+        :course,
+        :with_teachers,
+        :with_students,
+        :with_questions,
+        :with_reviews,
+        :with_lectures
+      )
       Rails.logger.debug { "loading #{i}/#{n}" }
     end
   end
