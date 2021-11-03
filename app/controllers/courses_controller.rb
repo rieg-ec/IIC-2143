@@ -3,6 +3,8 @@
 # fmonthsozen_string_literal: true
 
 class CoursesController < ApplicationController
+  before_action :authenticate_user!
+
   def index
     @courses = Course.all
   end
@@ -14,11 +16,9 @@ class CoursesController < ApplicationController
   end
 
   def register_student
-    if CourseUser.create!(role: :student, course: course, user: current_user)
-      redirect_to course_path(course)
-    else
-      redirect_to courses_path
-    end
+    CourseUser.create!(role: :student, course: course, user: current_user)
+
+    redirect_to courses_path
   end
 
   private
@@ -28,7 +28,7 @@ class CoursesController < ApplicationController
   end
 
   def student?
-    return true if CourseUser.where(user: current_user, course: course)
+    return true unless CourseUser.where(user: current_user, course: course).empty?
 
     false
   end
