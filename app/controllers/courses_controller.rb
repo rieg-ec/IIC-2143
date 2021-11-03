@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # fmonthsozen_string_literal: true
 
 class CoursesController < ApplicationController
@@ -8,7 +10,7 @@ class CoursesController < ApplicationController
   def show
     @lectures = course.lectures
     @reviews = course.reviews
-    is_student
+    @is_student = student?
   end
 
   def register_student
@@ -25,7 +27,7 @@ class CoursesController < ApplicationController
     @course ||= Course.find(params[:id])
   end
 
-  def is_student
+  def student?
     return true if CourseUser.where(user: current_user, course: course)
 
     false

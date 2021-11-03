@@ -31,7 +31,7 @@ class Course < ApplicationRecord
   end
 
   def background_url
-    default_background = "https://picsum.photos/640/360"
+    default_background = 'https://picsum.photos/640/360'
 
     return default_background unless background.attached?
 

@@ -39,6 +39,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 gem 'activeadmin'
 gem 'activeadmin_addons'
+gem 'active_model_serializers', '~> 0.9.3', require: true
 gem 'active_skin', github: 'SoftwareBrothers/active_skin'
 gem 'devise'
 gem 'dotenv-rails'
@@ -52,7 +53,6 @@ gem 'rails-controller-testing'
 gem 'rolify'
 gem 'shoulda-matchers', '~> 5.0'
 gem 'webpacker'
-gem 'active_model_serializers', '~> 0.9.3', require: true
 
 group :development, :test do
   gem 'factory_bot_rails'
