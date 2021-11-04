@@ -16,7 +16,6 @@ module FakeDataLoader
     n.times do |i|
       create(
         :course,
-        :with_teachers,
         :with_students,
         :with_questions,
         :with_reviews,
