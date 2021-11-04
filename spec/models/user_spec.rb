@@ -8,11 +8,8 @@ RSpec.describe User, type: :model do
   end
 
   describe 'relations' do
-    it { is_expected.to have_many(:course_users).dependent(:destroy) }
     it { is_expected.to have_many(:courses_owned).dependent(:destroy) }
     it { is_expected.to have_many(:courses_enrolled).dependent(:nullify) }
-    it { is_expected.to have_many(:questions).dependent(:destroy) }
-    it { is_expected.to have_many(:reviews).dependent(:destroy) }
   end
 
   describe 'validations' do

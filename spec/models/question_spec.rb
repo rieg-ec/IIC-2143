@@ -8,7 +8,6 @@ RSpec.describe Question, type: :model do
   end
 
   describe 'relations' do
-    it { is_expected.to belong_to(:course_user) }
-    it { is_expected.to have_one(:author) }
+    it { is_expected.to belong_to(:course_student) }
   end
 end

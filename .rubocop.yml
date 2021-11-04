@@ -29,3 +29,5 @@ Lint/EmptyBlock:
   Enabled: false
 RSpec/NestedGroups:
   Enabled: false
+Lint/UnderscorePrefixedVariableName:
+  Enabled: false

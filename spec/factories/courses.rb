@@ -5,39 +5,30 @@ FactoryBot.define do
     name { 'MyCourse' }
     category { %i[math sports food pets].sample }
     end_date { DateTime.current + 9.weeks }
+    association :teacher, factory: :user
 
     trait :with_students do
       after(:create) do |course|
         users_n = rand(2..6)
         users = create_list(:user, users_n)
         users_n.times do |i|
-          create(:course_user, user: users[i], course: course)
-        end
-      end
-    end
-
-    trait :with_teachers do
-      after(:create) do |course|
-        users_n = rand(1..3)
-        users = create_list(:user, users_n)
-        users_n.times do |i|
-          create(:course_user, :teacher, user: users[i], course: course)
+          create(:course_student, student: users[i], course: course)
         end
       end
     end
 
     trait :with_questions do
       after(:create) do |course|
-        course_user = create(:course_user, course: course)
-        create_list(:question, 3, course_user: course_user)
+        course_student = create(:course_student, course: course)
+        create_list(:question, 3, course_student: course_student)
       end
     end
 
     trait :with_reviews do
       after(:create) do |course|
         rand(2..10).times do
-          course_user = create(:course_user, course: course)
-          create(:review, course_user: course_user)
+          course_student = create(:course_student, course: course)
+          create(:review, course_student: course_student)
         end
       end
     end

@@ -9,17 +9,12 @@ class Course < ApplicationRecord
 
   enumerize :category, in: CATEGORIES
 
-  has_many :course_users, dependent: :destroy
-  has_many :users, through: :course_users
-  has_many :students, lambda {
-                        where(course_users: { role: :student })
-                      }, through: :course_users, source: :user, inverse_of: :courses_enrolled
-  has_many :teachers, lambda {
-                        where(course_users: { role: :teacher })
-                      }, through: :course_users, source: :user, inverse_of: :courses_owned
+  has_many :course_students, dependent: :destroy
+  belongs_to :teacher, class_name: 'User'
+  has_many :students, through: :course_students, source: :student, inverse_of: :courses_enrolled
 
-  has_many :reviews, through: :course_users, source: :review, dependent: :destroy
-  has_many :questions, through: :course_users, source: :questions, dependent: :destroy
+  has_many :reviews, through: :course_students, source: :review, dependent: :destroy
+  has_many :questions, through: :course_students, source: :questions, dependent: :destroy
   has_many :lectures, dependent: :destroy
 
   scope :active, -> { where('end_date < ?', DateTime.current) }
@@ -49,4 +44,13 @@ end
 #  name       :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  teacher_id :bigint           not null
+#
+# Indexes
+#
+#  index_courses_on_teacher_id  (teacher_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (teacher_id => users.id)
 #

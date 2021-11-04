@@ -2,6 +2,7 @@
   "name": "hobbies-app",
   "private": true,
   "dependencies": {
+    "@rails/ujs": "^6.1.4-1",
     "@rails/webpacker": "4.3.0",
     "autoprefixer": "^9",
     "humps": "^2.0.1",

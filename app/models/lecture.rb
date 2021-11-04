@@ -2,19 +2,10 @@
 
 class Lecture < ApplicationRecord
   has_one_attached :video
-  has_one_attached :background
 
   belongs_to :course
 
   validates :video, presence: true
-
-  def background_url
-    default_background = 'https://picsum.photos/160/90'
-
-    return default_background unless background.attached?
-
-    rails_blob_path(background, only_path: true)
-  end
 end
 
 # == Schema Information
