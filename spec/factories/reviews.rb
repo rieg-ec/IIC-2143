@@ -2,8 +2,8 @@
 
 FactoryBot.define do
   factory :review do
-    course_user
-    rating { 1.5 }
+    course_student
+    rating { rand(0..5) }
     body { 'MyText' }
   end
 end

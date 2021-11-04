@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :question do
-    course_user
+    course_student
     body { 'MyText' }
   end
 end

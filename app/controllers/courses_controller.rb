@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# fmonthsozen_string_literal: true
-
 class CoursesController < ApplicationController
   before_action :authenticate_user!
 
@@ -16,7 +14,7 @@ class CoursesController < ApplicationController
   end
 
   def register_student
-    CourseUser.create!(role: :student, course: course, user: current_user)
+    CourseStudent.create!(course: course, student: current_user)
 
     redirect_to courses_path
   end
@@ -28,7 +26,7 @@ class CoursesController < ApplicationController
   end
 
   def student?
-    return true unless CourseUser.where(user: current_user, course: course).empty?
+    return true unless CourseStudent.where(student: current_user, course: course).empty?
 
     false
   end

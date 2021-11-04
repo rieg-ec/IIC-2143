@@ -1,18 +1,16 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
-  rolify
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_many :course_users, dependent: :destroy
-  has_many :courses_owned, through: :course_users, source: :course, inverse_of: :teachers, dependent: :destroy
-  has_many :courses_enrolled, through: :course_users, source: :course, inverse_of: :students, dependent: :nullify
+  has_many :course_students, dependent: :destroy
 
-  has_many :questions, through: :course_users, source: :questions, dependent: :destroy, inverse_of: :author
-  has_many :reviews, through: :course_users, source: :review, dependent: :destroy
+  has_many :courses_owned, class_name: 'Course', foreign_key: 'teacher_id', dependent: :destroy, inverse_of: :teacher
+  has_many :courses_enrolled, through: :course_students, source: :course, inverse_of: :students, dependent: :nullify,
+                              foreign_key: 'student_id'
 
   has_one_attached :avatar
 

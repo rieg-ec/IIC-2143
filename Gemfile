@@ -52,6 +52,7 @@ gem 'rack-cors', '~> 1.1'
 gem 'rails-controller-testing'
 gem 'rolify'
 gem 'shoulda-matchers', '~> 5.0'
+gem 'versionist'
 gem 'webpacker'
 
 group :development, :test do
