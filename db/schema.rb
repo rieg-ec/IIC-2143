@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_211_104_030_653) do
+ActiveRecord::Schema.define(version: 20_211_104_190_933) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -67,7 +67,9 @@ ActiveRecord::Schema.define(version: 20_211_104_030_653) do
     t.bigint 'course_id', null: false
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
+    t.bigint 'review_id'
     t.index ['course_id'], name: 'index_course_students_on_course_id'
+    t.index ['review_id'], name: 'index_course_students_on_review_id'
     t.index ['student_id'], name: 'index_course_students_on_student_id'
   end
 
@@ -123,6 +125,7 @@ ActiveRecord::Schema.define(version: 20_211_104_030_653) do
 
   add_foreign_key 'active_storage_attachments', 'active_storage_blobs', column: 'blob_id'
   add_foreign_key 'course_students', 'courses'
+  add_foreign_key 'course_students', 'reviews'
   add_foreign_key 'course_students', 'users', column: 'student_id'
   add_foreign_key 'courses', 'users', column: 'teacher_id'
   add_foreign_key 'lectures', 'courses'

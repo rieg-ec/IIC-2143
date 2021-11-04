@@ -27,8 +27,7 @@ FactoryBot.define do
     trait :with_reviews do
       after(:create) do |course|
         rand(2..10).times do
-          course_student = create(:course_student, course: course)
-          create(:review, course_student: course_student)
+          create(:course_student, :with_review, course: course)
         end
       end
     end
