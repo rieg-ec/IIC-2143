@@ -12,7 +12,7 @@ module FakeDataLoader
   end
 
   def self.load_courses
-    n = 20
+    n = 10
     n.times do |i|
       create(
         :course,
