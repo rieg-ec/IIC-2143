@@ -1,7 +1,7 @@
 <div class="flex flex-col items-center w-full h-full py-12">
   <div class="flex flex-col items-center w-full px-12 space-y-12">
     <div class="w-full px-2 text-left">
-      <h1 class="w-64 text-2xl font-medium">
+      <h1 class="w-full text-2xl font-bold">
         ¡Bienvenido a Hobbies App!
       </h1>
     </div>
@@ -11,20 +11,23 @@
       <span class="text-xl font-medium">Cursos mas populares:</span>
       <popular-courses :courses="<%= SerializeUtils.map_to_json(@courses, each_serializer: PreviewCourseSerializer) %>"></popular-courses>
     </div>
-    <carousel>
+    <div class="md:container md:mx-auto py-2">
+    <carousel :per-page="4" :spacePadding="10">
   <% @courses.each do |course| %>
       <slide>
-      <div class='border rounded border-black px-4 py-2'>
-          <a class='is-size-2 has-text-weight-bold'><%= course.name%></a>
+      <div class="items-center">
+          <a class='text-xl font-bold'><%= course.name%></a>
           <br>
+          <p> Profesor: <%= course.teacher.first_name%> <%=course.teacher.last_name%></p>
           <p> Categoria: <%= course.category %></p>
           <p> Fecha Termino: <%= course.end_date %></p>
-          <p> Rating: <%= course.reviews.average(:rating) %></p>
-          <p><%= link_to 'View details', courses_path(:id => course.id) %></p>
+          <p> Rating: <%= course.reviews.average(:rating).round(1) %></p>
+          <button class="h-8 px-4 m-2 text-white transition-colors duration-150 bg-red-500 rounded-lg focus:shadow-outline hover:bg-red-200"><%= link_to 'View details', courses_path(:id => course.id) %></button>
         </div>
       </slide>
   <% end %>
   </carousel>
+  </div>
     </div>
   </div>
 </div>
