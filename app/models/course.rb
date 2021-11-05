@@ -26,11 +26,17 @@ class Course < ApplicationRecord
   end
 
   def background_url
-    default_background = 'https://picsum.photos/640/360'
+    default_background = 'https://picsum.photos/1920/1080'
 
     return default_background unless background.attached?
 
     rails_blob_path(background, only_path: true)
+  end
+
+  def average_rating
+    return 0 if reviews.empty?
+
+    reviews.average(:rating).round(1)
   end
 end
 

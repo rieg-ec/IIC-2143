@@ -2,6 +2,6 @@
 
 class HomeController < ApplicationController
   def index
-    @courses = Course.all
+    @courses = Course.all.includes(:reviews, :teacher)
   end
 end
