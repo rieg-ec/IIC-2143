@@ -6,6 +6,8 @@
         <div class="flex flex-col items-center w-64 sm:w-80 space-y-12">
           <%= render "devise/shared/error_messages", resource: resource %>
           <div class="flex flex-col w-full space-y-4">
+            <input type="first_name" name="user[first_name]" placeholder="Nombre" class="text-input">
+            <input type="last_name" name="user[last_name]" placeholder="Apellido" class="text-input">
             <input type="email" name="user[email]" placeholder="Ingresa tu email" class="text-input">
             <input type="password" name="user[password]" autocomplete="new-password" minlength="<%= @minimum_password_length %>" placeholder="Ingresa tu contraseña" class="text-input">
             <input type="password" name="user[password_confirmation]" autocomplete="new-password" minlength="<%= @minimum_password_length %>" placeholder="Confirma tu contraseña" class="text-input">
