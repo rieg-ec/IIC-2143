@@ -19,24 +19,24 @@ module SerializeUtils
     serializer ? serializer.new(resource).to_h : resource.to_h
   end
 
-  def to_json(resource)
-    serializer = serializer_for(resource)
+  def to_json(resource, serializer)
+    serializer ||= serializer_for(resource)
     serializer ? serializer.new(resource).to_json : resource.to_json
   end
 
-  def as_json(resource)
-    serializer = serializer_for(resource)
+  def as_json(resource, serializer)
+    serializer ||= serializer_for(resource)
     serializer ? serializer.new(resource).as_json : resource.as_json
   end
 
-  def as_json_value(resource)
-    as_json(resource)[model_name_underscore(resource)]
+  def as_json_value(resource, serializer = nil)
+    as_json(resource, serializer)[model_name_underscore(resource)]
   end
 
-  def to_json_value(resource)
+  def to_json_value(resource, serializer = nil)
     return unless resource
 
-    as_json(resource)[model_name_underscore(resource)].to_json
+    as_json(resource, serializer)[model_name_underscore(resource)].to_json
   end
 
   def map_to_json(resources, options = {})
