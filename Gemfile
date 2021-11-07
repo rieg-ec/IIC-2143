@@ -35,12 +35,12 @@ gem 'jbuilder', '~> 2.5'
 # gem 'capistrano-rails', group: :development
 
 # Reduces boot times through caching; required in config/boot.rb
-gem 'bootsnap', '>= 1.1.0', require: false
-
 gem 'activeadmin'
 gem 'activeadmin_addons'
 gem 'active_model_serializers', '~> 0.9.3', require: true
 gem 'active_skin', github: 'SoftwareBrothers/active_skin'
+gem 'aws-sdk-s3', require: false
+gem 'bootsnap', '>= 1.1.0', require: false
 gem 'devise'
 gem 'dotenv-rails'
 gem 'draper'

@@ -1,33 +1,31 @@
 <div class="flex flex-col items-center w-full h-full py-12">
-  <div class="flex flex-col items-center w-full px-12 space-y-12">
-    <div class="w-full px-2 text-left">
-      <h1 class="w-full text-2xl font-bold">
-        ¡Bienvenido a Hobbies App!
-      </h1>
-    </div>
-    <img class="h-44" src="<%= image_url('landing-illustration.png') %>" alt="">
-
-    <div class="flex flex-col w-full space-y-6">
-      <span class="text-xl font-medium">Cursos mas populares:</span>
-      <popular-courses :courses="<%= SerializeUtils.map_to_json(@courses, each_serializer: PreviewCourseSerializer) %>"></popular-courses>
-    </div>
-    <div class="md:container md:mx-auto py-2">
-    <carousel :per-page="4" :spacePadding="10">
-  <% @courses.each do |course| %>
-      <slide>
-      <div class="items-center">
-          <a class='text-xl font-bold'><%= course.name%></a>
-          <br>
-          <p> Profesor: <%= course.teacher.first_name%> <%=course.teacher.last_name%></p>
-          <p> Categoria: <%= course.category %></p>
-          <p> Fecha Termino: <%= course.end_date %></p>
-          <p> Rating: <%= course.reviews.average(:rating) %></p>
-          <p><%= link_to 'View details', courses_path(:id => course.id) %></p>
+  <div class="flex flex-col items-center w-full space-y-12">
+    <div class="container flex flex-col space-y-12">
+      <div class="text-left">
+        <h1 class="w-full text-2xl font-bold">
+          ¡Bienvenido a Hobbies App!
+        </h1>
+      </div>
+      <div class="flex flex-row items-center justify-between w-full">
+        <div class="flex flex-col px-2 space-y-6">
+          <h2 class="text-3xl font-bold">Aprende sin limites.</h2>
+          <p class="font-normal text-gray-500">Inscribete en cursos para tus hobbies favoritos, o bien, sube cursos tu mismo.</p>
         </div>
-      </slide>
-  <% end %>
-  </carousel>
-  </div>
+        <div class="px-24">
+          <img class="h-64" src="<%= image_url('landing-illustration.png') %>">
+        </div>
+      </div>
+      <div class="flex flex-col w-full space-y-6">
+        <span class="text-xl font-medium">Cursos mas populares:</span>
+      </div>
+    </div>
+    <div class="w-full bg-gray-100">
+      <div class="py-2 md:container md:mx-auto">
+        <course-carousel
+          :courses="<%= SerializeUtils.map_to_json(@courses, each_serializer: FullCourseSerializer) %> | camelizeKeys"
+        >
+        </course-carousel>
+      </div>
     </div>
   </div>
 </div>

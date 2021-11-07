@@ -7,10 +7,14 @@ module ApiErrorConcern
     rescue_from 'Exception' do |exception|
       logger.error exception.message
       logger.error exception.backtrace.join("\n")
-      Raven.capture_exception(exception)
       respond_api_error(:internal_server_error, message: 'server_error',
                                                 type: exception.class.to_s,
                                                 detail: exception.message)
+    end
+
+    rescue_from 'BadRequest' do |exception|
+      respond_api_error(:bad_request, message: 'bad_request',
+                                      detail: exception.message)
     end
 
     rescue_from 'ActiveRecord::RecordNotFound' do |exception|
@@ -31,11 +35,6 @@ module ApiErrorConcern
     rescue_from 'Pundit::NotAuthorizedError' do |exception|
       respond_api_error(:unauthorized, message: 'no permission',
                                        errors: exception.record.errors)
-    end
-
-    rescue_from 'AASM::InvalidTransition' do |exception|
-      respond_api_error(:unprocessable_entity, message: 'invalid_transition',
-                                               detail: exception.message)
     end
   end
 
