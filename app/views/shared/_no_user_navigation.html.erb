@@ -1,6 +1,6 @@
 <nav class="flex flex-wrap items-center justify-between p-5 bg-red-500">
   <div class="flex items-center flex-shrink-0 mr-6 text-white">
-    <a><%= link_to 'Hobbies App', '/', class:"font-semibold text-xl tracking-tight"%></a>
+    <%= link_to 'Hobbies App', root_path, class:"font-semibold text-xl tracking-tight"%>
     
   </div>
   <div class="block lg:hidden">
@@ -12,10 +12,10 @@
     <div class="text-sm lg:flex-grow">
     </div>
     <div>
-      <a><%= link_to 'Iniciar Sesión', new_user_session_url, class:"inline-block text-sm px-4 py-2 leading-none text-white hover:text-red-200 mt-4 lg:mt-0"%></a>
+      <%= link_to 'Iniciar Sesión', new_user_session_url, class:"inline-block text-sm px-4 py-2 leading-none text-white hover:text-red-200 mt-4 lg:mt-0"%>
     </div>
     <div>
-      <a><%= link_to 'Registrarse', new_user_registration_url, class:"inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-red-200 mt-4 lg:mt-0"%></a>
+      <%= link_to 'Registrarse', new_user_registration_url, class:"inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-red-200 mt-4 lg:mt-0"%>
     </div>
   </div>
 </nav>

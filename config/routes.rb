@@ -2,15 +2,17 @@
 
 Rails.application.routes.draw do
   resources :users, only: %i[index show edit update]
-  resources :courses, only: %i[index show]
+  resources :courses, only: %i[show]
 
   scope path: '/api' do
     api_version(module: 'Api::V1', path: { value: 'v1' }, defaults: { format: 'json' }) do
-      resources :courses, only: [:index] do
+      resources :courses, only: %i[index show] do
         member do
           post :register
         end
       end
+
+      resources :reviews, only: %i[create destroy show index]
     end
   end
 

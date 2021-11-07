@@ -34,7 +34,7 @@ class Course < ApplicationRecord
   end
 
   def average_rating
-    return 0 if reviews.empty?
+    return 0.0 if reviews.empty?
 
     reviews.average(:rating).round(1)
   end
