@@ -9,23 +9,25 @@
 
     <div class="flex flex-col w-full space-y-6">
       <span class="text-xl font-medium">Cursos mas populares:</span>
+      <popular-courses :courses="<%= SerializeUtils.map_to_json(@courses, each_serializer: PreviewCourseSerializer) %>"></popular-courses>
     </div>
-    <div class="py-2 md:container md:mx-auto">
-      <carousel :per-page="4" :spacePadding="10">
-        <% @courses.each do |course| %>
-          <slide>
-            <div class="items-center">
-              <a class='text-xl font-bold'><%= course.name %></a>
-              <br>
-              <p> Profesor: <%= course.teacher.full_name %></p>
-              <p> Categoria: <%= course.category %></p>
-              <p> Fecha Termino: <%= course.end_date %></p>
-              <p> Rating: <%= course.average_rating %></p>
-              <button class="h-8 px-4 m-2 text-white bg-red-500 rounded-lg transition-colors duration-150 focus:shadow-outline hover:bg-red-200"><%= link_to 'View details', courses_path(:id => course.id) %></button>
-            </div>
-          </slide>
-        <% end %>
-      </carousel>
+    <div class="md:container md:mx-auto py-2">
+    <carousel :per-page="4" :spacePadding="10">
+  <% @courses.each do |course| %>
+      <slide>
+      <div class="items-center">
+          <a class='text-xl font-bold'><%= course.name%></a>
+          <br>
+          <p> Profesor: <%= course.teacher.first_name%> <%=course.teacher.last_name%></p>
+          <p> Categoria: <%= course.category %></p>
+          <p> Fecha Termino: <%= course.end_date %></p>
+          <p> Rating: <%= course.reviews.average(:rating) %></p>
+          <p><%= link_to 'View details', courses_path(:id => course.id) %></p>
+        </div>
+      </slide>
+  <% end %>
+  </carousel>
+  </div>
     </div>
   </div>
 </div>
