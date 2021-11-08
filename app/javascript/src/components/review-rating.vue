@@ -6,17 +6,16 @@
     <span class="font-bold">{{ average }}</span>
     <div class="flex flex-row items-center">
       <font-awesome-icon
-        v-for="(review, index) in starCount.full"
+        v-for="index in starCount.full"
         :key="index + 'full'"
         :icon="['fas', 'star']"
       />
       <font-awesome-icon
-        v-for="(review, index) in starCount.half"
-        :key="index + 'half'"
+        v-if="starCount.half"
         :icon="['fas', 'star-half-alt']"
       />
       <font-awesome-icon
-        v-for="(review, index) in starCount.empty"
+        v-for="index in starCount.empty"
         :key="index + 'empty'"
         :icon="['far', 'star']"
       />
