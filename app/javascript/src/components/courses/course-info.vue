@@ -37,12 +37,15 @@
       <div
         v-for="(lecture, index) in course.lectures"
         :key="index"
-        class="flex flex-row justify-between w-full p-2 border border-gray-200 hover:bg-gray-50 rounded-xl"
+        @click="handleLectureClick(lecture.id)"
+        class="flex flex-row justify-between w-full p-2 border border-gray-200 cursor-pointer hover:bg-gray-50 rounded-xl"
       >
         <div class="flex flex-col w-full space-y-4">
           <span
             class="text-base font-medium"
-          >{{ index }} {{ lecture.title }}</span>
+          >
+            {{ index }} {{ lecture.title }}
+          </span>
           <p class="text-sm text-gray-700">
             {{ lecture.description }}
           </p>
@@ -156,6 +159,9 @@ export default {
       } catch (e) {
         alert('Hubo un error');
       }
+    },
+    handleLectureClick(id) {
+      window.location = `/courses/${this.course.id}/lectures/${id}`;
     },
   },
 };

@@ -23,11 +23,12 @@ import { faStar as farStar } from '@fortawesome/free-regular-svg-icons';
 import {
   faStar as fasStar,
   faStarHalfAlt,
+  faCaretLeft,
 } from '@fortawesome/free-solid-svg-icons';
 
 import PopularCourses from '../src/components/popular-courses.vue';
 import CourseInfo from '../src/components/courses/course-info.vue';
-import CourseLesson from '../src/components/courses/course-lesson.vue';
+import CourseLecture from '../src/components/courses/course-lecture.vue';
 import CourseCarousel from '../src/components/courses/course-carousel.vue';
 import ReviewRating from '../src/components/review-rating.vue';
 
@@ -37,13 +38,13 @@ Vue.filter('camelizeKeys', (value) => camelizeKeys(value));
 
 Vue.component('popular-courses', PopularCourses);
 Vue.component('course-info', CourseInfo);
-Vue.component('course-lesson', CourseLesson);
 Vue.component('course-carousel', CourseCarousel);
 Vue.component('review-rating', ReviewRating);
+Vue.component('course-lecture', CourseLecture);
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
-library.add(fasStar, farStar, faStarHalfAlt);
+library.add(faCaretLeft, fasStar, farStar, faStarHalfAlt);
 
 document.addEventListener('DOMContentLoaded', () => {
   if (document.getElementById('vue-app')) {
