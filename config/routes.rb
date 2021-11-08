@@ -15,6 +15,7 @@ Rails.application.routes.draw do
       end
 
       resources :reviews, only: %i[create destroy show index]
+      resources :questions, only: %i[create destroy index]
     end
   end
 

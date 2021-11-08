@@ -5,6 +5,7 @@ class LecturesController < ApplicationController
 
   def show
     @course = lecture.course
+    @questions = @course.questions
   end
 
   def create; end

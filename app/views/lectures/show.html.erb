@@ -1,9 +1,21 @@
 <div class="flex flex-col items-center w-full h-full">
-  <div class="container flex flex-col items-center">
-    <course-lecture
-      :course="<%= SerializeUtils.to_json_value(@course)  %> | camelizeKeys"
-      :lecture="<%= SerializeUtils.to_json_value(@lecture) %> | camelizeKeys"
+  <div class="container py-2">
+    <button
+      onclick="window.history.back()"
+      class="flex flex-row items-center font-bold hover:text-gray-700 transform hover:scale-110 justify-centertext-2xl space-x-2"
     >
-    </course-lecture>
+      <font-awesome-icon :icon="['fas', 'caret-left']"></font-awesome-icon>
+      <span>Volver</span>
+    </button>
+    <div class="flex flex-col items-center ">
+      <course-lecture
+        :course="<%= SerializeUtils.to_json_value(@course)  %> | camelizeKeys"
+        :lecture="<%= SerializeUtils.to_json_value(@lecture) %> | camelizeKeys"
+      <% unless @questions.empty? %>
+        :questions="<%= SerializeUtils.map_to_json(@questions) %> | camelizeKeys"
+      <% end %>
+      >
+      </course-lecture>  
+    </div>
   </div>
 </div>
