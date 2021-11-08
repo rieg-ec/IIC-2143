@@ -9,10 +9,27 @@ class CoursesController < ApplicationController
     @is_student = student?
   end
 
+  def new; end
+
+  def create
+    @course = Course.new(
+      course_params.merge(teacher: current_user)
+    )
+    if @course.save
+      redirect_to course_path(@course)
+    else
+      render :new
+    end
+  end
+
   private
 
   def course
     @course ||= Course.find(params[:id])
+  end
+
+  def course_params
+    params.require(:course).permit(:category, :name, :end_date)
   end
 
   def student?

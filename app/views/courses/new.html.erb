@@ -1,0 +1,25 @@
+<div class="flex justify-center w-full h-full">
+  <div class="container">
+    <%= form_with url: courses_path, method: :post  do |f| %>
+      <div class="flex flex-col items-center w-full py-12 bborder">
+        <div class="">
+          <label>Nombre del curso:</label>
+          <input type="text" name="course[name]">
+        </div>
+        <div class="">
+          <label>Categoria:</label>
+          <input type="text" name="course[category]">
+        </div>
+        <div class="">
+          <label>Fecha de termino:</label>
+          <input type="date" name="course[end_date]">
+        </div>
+        <div class="">
+          <%= f.file_field :video, accept: '.mp4' %>
+        </div>
+
+        <%= f.submit "Guardar", class: 'main-btn' %>
+      </div>
+    <% end %>
+  </div>
+</div>
