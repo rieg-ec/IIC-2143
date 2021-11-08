@@ -31,6 +31,7 @@ import CourseInfo from '../src/components/courses/course-info.vue';
 import CourseLecture from '../src/components/courses/course-lecture.vue';
 import CourseCarousel from '../src/components/courses/course-carousel.vue';
 import ReviewRating from '../src/components/review-rating.vue';
+import QuestionModal from '../src/components/questions/question-modal.vue';
 
 import '../css/application.css';
 
@@ -41,6 +42,8 @@ Vue.component('course-info', CourseInfo);
 Vue.component('course-carousel', CourseCarousel);
 Vue.component('review-rating', ReviewRating);
 Vue.component('course-lecture', CourseLecture);
+
+Vue.component('question-modal', QuestionModal);
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 

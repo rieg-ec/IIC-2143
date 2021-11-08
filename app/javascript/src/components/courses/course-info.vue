@@ -71,9 +71,25 @@
         class="flex flex-row justify-between w-full p-2 border border-gray-200 hover:bg-gray-50 rounded-xl"
       >
         <div class="flex flex-col items-left">
-          <div class="flex flex-row items-center justify-between w-full">
-            <span class="text-base font-medium">Ignacio Vergara</span>
-            <span class="5 estrellas" />
+          <div class="flex flex-row items-center justify-between w-full space-x-4">
+            <span class="text-base font-medium">{{ review_.authorName }}</span>
+            <div class="flex flex-row text-yellow-600">
+              <font-awesome-icon
+                v-for="ratingIndex in review_.full"
+                :key="ratingIndex + 'full'"
+                :icon="['fas', 'star']"
+              />
+              <font-awesome-icon
+                v-if="review_.half"
+                :key="ratingIndex + 'half'"
+                :icon="['fas', 'star-half-alt']"
+              />
+              <font-awesome-icon
+                v-for="ratingIndex in review_.empty"
+                :key="ratingIndex + 'empty'"
+                :icon="['far', 'star']"
+              />
+            </div>
           </div>
           <p class="text-sm text-gray-700">
             {{ review_.body }}
@@ -134,6 +150,15 @@ export default {
       review: null,
       openReviewModal: false,
     };
+  },
+  created() {
+    this.course.reviews.map(review => {
+      review.full = Math.floor(review.rating);
+      review.half = review.rating - review.full > 0 ? 1 : 0;
+      review.empty = 5 - (review.full + review.half);
+
+      return review;
+    });
   },
   async mounted() {
     try {
