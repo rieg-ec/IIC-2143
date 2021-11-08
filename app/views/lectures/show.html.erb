@@ -1,0 +1,9 @@
+<div class="flex flex-col items-center w-full h-full">
+  <div class="container flex flex-col items-center">
+    <course-lecture
+      :course="<%= SerializeUtils.to_json_value(@course)  %> | camelizeKeys"
+      :lecture="<%= SerializeUtils.to_json_value(@lecture) %> | camelizeKeys"
+    >
+    </course-lecture>
+  </div>
+</div>

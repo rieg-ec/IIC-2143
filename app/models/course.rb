@@ -30,7 +30,7 @@ class Course < ApplicationRecord
 
     return default_background unless background.attached?
 
-    rails_blob_path(background, only_path: true)
+    Rails.application.routes.url_helpers.rails_blob_url(background, only_path: true)
   end
 
   def average_rating

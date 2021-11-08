@@ -6,6 +6,10 @@ class Lecture < ApplicationRecord
   belongs_to :course
 
   validates :video, presence: true
+
+  def video_url
+    Rails.application.routes.url_helpers.rails_blob_url(video, only_path: true)
+  end
 end
 
 # == Schema Information
