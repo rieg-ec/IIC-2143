@@ -75,7 +75,7 @@
     "no-lone-blocks": 2,
     "no-loop-func": 2,
     "no-magic-numbers": [
-      2,
+      0,
       {
         "ignore": [0, 1, -1]
       }
@@ -330,7 +330,7 @@
     ],
     "max-nested-callbacks": [2, 4],
     "max-params": [1, 4],
-    "max-statements": [1, 10],
+    "max-statements": [1, 18],
     "max-statements-per-line": [
       2,
       {
@@ -379,7 +379,7 @@
     "no-spaced-func": 2,
     "no-ternary": 0,
     "no-trailing-spaces": 2,
-    "no-underscore-dangle": [1],
+    "no-underscore-dangle": [0],
     "no-unneeded-ternary": [
       2,
       {
