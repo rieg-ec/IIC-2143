@@ -3,7 +3,7 @@
     <Carousel
       :navigation-enabled="true"
       :autoplay="true"
-      :per-page="4"
+      :per-page="perPageLocal"
     >
       <slide
         class="px-2"
@@ -28,6 +28,11 @@ export default {
   components: { Carousel, Slide, CourseCard },
   props: {
     courses: { type: Array, required: true },
+    perPage: { type: Number, default: 4 },
+  },
+  perPageLocal() {
+    return this.courses.length > this.perPage ? this.perPage :
+      this.courses.length;
   },
 };
 </script>

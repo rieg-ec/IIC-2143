@@ -25,6 +25,7 @@ import {
   faStarHalfAlt,
   faCaretLeft,
 } from '@fortawesome/free-solid-svg-icons';
+import { InlineSvgPlugin } from 'vue-inline-svg';
 
 import PopularCourses from '../src/components/popular-courses.vue';
 import CourseInfo from '../src/components/courses/course-info.vue';
@@ -32,6 +33,7 @@ import CourseLecture from '../src/components/courses/course-lecture.vue';
 import CourseCarousel from '../src/components/courses/course-carousel.vue';
 import ReviewRating from '../src/components/review-rating.vue';
 import QuestionModal from '../src/components/questions/question-modal.vue';
+import CourseCreateForm from '../src/components/courses/course-create-form.vue';
 
 import '../css/application.css';
 
@@ -42,10 +44,11 @@ Vue.component('course-info', CourseInfo);
 Vue.component('course-carousel', CourseCarousel);
 Vue.component('review-rating', ReviewRating);
 Vue.component('course-lecture', CourseLecture);
-
+Vue.component('course-create-form', CourseCreateForm);
 Vue.component('question-modal', QuestionModal);
-
 Vue.component('font-awesome-icon', FontAwesomeIcon);
+
+Vue.use(InlineSvgPlugin);
 
 library.add(faCaretLeft, fasStar, farStar, faStarHalfAlt);
 

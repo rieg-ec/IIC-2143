@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
-class ReviewSerializer < ActiveModel::Serializer
-  attributes :id, :body, :rating, :created_at, :author_name
+class ReviewSerializer < BaseSerializer
+  type :review
 
-  def author_name
-    object.course_student.student.full_name
+  attributes :id, :body, :rating, :updated_at, :created_at, :course_student_id
+
+  attribute(:author, if: -> { instance_options[:author] }) do
+    nested_resource(object.course_student.student)
   end
 end

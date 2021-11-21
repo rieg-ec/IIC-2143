@@ -13,7 +13,7 @@
       <div class="flex flex-row items-center space-x-4">
         <span class="text-gray-600">Jose Portillo</span>
         <review-rating
-          :reviews="course.reviews"
+          :reviews="reviews"
           :text-size="'text-base'"
         />
         <a
@@ -37,7 +37,7 @@
       <div
         v-for="(lecture, index) in course.lectures"
         :key="index"
-        @click="handleLectureClick(lecture.id)"
+        @click="goToLecture(lecture.id)"
         class="flex flex-row justify-between w-full p-2 border border-gray-200 cursor-pointer hover:bg-gray-50 rounded-xl"
       >
         <div class="flex flex-col w-full space-y-4">
@@ -60,45 +60,45 @@
       class="flex flex-col p-2 space-y-4"
     >
       <div
-        v-if="!course.reviews.length"
+        v-if="!reviews.length"
         class="w-full py-12 text-center"
       >
         <span class="text-lg text-gray-300">No hay reviews.</span>
       </div>
       <div
-        v-for="(review_, index) in course.reviews"
+        v-for="(review, index) in reviews"
         :key="index"
         class="flex flex-row justify-between w-full p-2 border border-gray-200 hover:bg-gray-50 rounded-xl"
       >
         <div class="flex flex-col items-left">
           <div class="flex flex-row items-center justify-between w-full space-x-4">
-            <span class="text-base font-medium">{{ review_.authorName }}</span>
+            <span class="text-base font-medium">{{ review.author.attributes.fullName }}</span>
             <div class="flex flex-row text-yellow-600">
               <font-awesome-icon
-                v-for="ratingIndex in review_.full"
+                v-for="ratingIndex in review.full"
                 :key="ratingIndex + 'full'"
                 :icon="['fas', 'star']"
               />
               <font-awesome-icon
-                v-if="review_.half"
+                v-if="review.half"
                 :key="ratingIndex + 'half'"
                 :icon="['fas', 'star-half-alt']"
               />
               <font-awesome-icon
-                v-for="ratingIndex in review_.empty"
+                v-for="ratingIndex in review.empty"
                 :key="ratingIndex + 'empty'"
                 :icon="['far', 'star']"
               />
             </div>
           </div>
           <p class="text-sm text-gray-700">
-            {{ review_.body }}
+            {{ review.body }}
           </p>
         </div>
         <div class="flex items-center justify-center h-full px-2">
           <button
-            v-if="review && review_.id === review.id"
-            @click="deleteReview"
+            v-if="review.id === currentUserReviewId"
+            @click="deleteReview(review.id)"
             class="main-btn"
           >
             Eliminar
@@ -108,14 +108,14 @@
     </div>
     <div class="flex justify-center w-full py-4">
       <button
-        v-if="isStudent && reviewsTab && !review"
+        v-if="isCurrentUserStudent && reviewsTab && !currentUserReviewId"
         @click="openReviewModal = true"
         class="course-btn"
       >
         Dejar review
       </button>
       <button
-        v-else-if="!isStudent && !reviewsTab"
+        v-else-if="!isCurrentUserStudent && !reviewsTab"
         @click="registerCourse"
         class="course-btn"
       >
@@ -124,7 +124,7 @@
     </div>
     <review-modal
       @cancel="openReviewModal = false"
-      @confirm="openReviewModal = false"
+      @confirm="createReview"
       v-if="openReviewModal"
       :course-id="course.id"
     />
@@ -142,50 +142,50 @@ export default {
   components: { ReviewModal, ReviewRating },
   props: {
     course: { type: Object, required: true },
-    isStudent: { type: Boolean, required: true },
+    currentUser: { type: Object, required: true },
   },
   data() {
     return {
       reviewsTab: false,
-      review: null,
       openReviewModal: false,
+      reviews: [],
     };
   },
-  created() {
-    this.course.reviews.map(review => {
-      review.full = Math.floor(review.rating);
-      review.half = review.rating - review.full > 0 ? 1 : 0;
-      review.empty = 5 - (review.full + review.half);
-
-      return review;
-    });
+  async created() {
+    this.reviews = await reviewsApi.getAll(this.course.id);
   },
-  async mounted() {
-    try {
-      const response = await reviewsApi.getAll({ courseId: this.course.id });
-      this.review = response;
-    } catch (e) {
-      console.log(e);
-    }
+  computed: {
+    isCurrentUserStudent() {
+      return !!this.course.students.find(
+        (user) => user.attributes.id === this.currentUser.id,
+      );
+    },
+    currentUserReviewId() {
+      const currentUserReview = this.reviews.find((review) => review.author.attributes.id === this.currentUser.id);
+
+      return currentUserReview && currentUserReview.id;
+    },
   },
   methods: {
     async registerCourse() {
+      await coursesApi.register(this.course.id);
+      location.reload();
+    },
+    async createReview(body, rating) {
       try {
-        await coursesApi.register(this.course.id);
-        location.reload();
+        const response = await reviewsApi.create(this.course.id, { body, rating });
+        this.reviews.push(response);
       } catch (e) {
-        alert('Hubo un error');
+        alert('Rating debe estar entre 0 y 5');
+      } finally {
+        this.openReviewModal = false;
       }
     },
-    async deleteReview() {
-      try {
-        await reviewsApi.delete(this.review.id);
-        location.reload();
-      } catch (e) {
-        alert('Hubo un error');
-      }
+    async deleteReview(id) {
+      await reviewsApi.delete(this.course.id, id);
+      this.reviews = this.reviews.filter((review) => review.id !== id);
     },
-    handleLectureClick(id) {
+    goToLecture(id) {
       window.location = `/courses/${this.course.id}/lectures/${id}`;
     },
   },

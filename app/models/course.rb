@@ -11,7 +11,8 @@ class Course < ApplicationRecord
 
   has_many :course_students, dependent: :destroy
   belongs_to :teacher, class_name: 'User'
-  has_many :students, through: :course_students, source: :student, inverse_of: :courses_enrolled
+  has_many :students, through: :course_students, source: :student, inverse_of: :courses_enrolled,
+                      foreign_key: 'student_id'
 
   has_many :reviews, through: :course_students, source: :review, dependent: :destroy
   has_many :questions, through: :course_students, source: :questions, dependent: :destroy

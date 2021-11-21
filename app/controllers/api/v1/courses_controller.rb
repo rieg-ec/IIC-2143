@@ -19,12 +19,6 @@ module Api
 
       private
 
-      def student?
-        return true unless CourseStudent.where(student: current_user, course: course).empty?
-
-        false
-      end
-
       def course
         @course ||= Course.find(params[:id])
       end

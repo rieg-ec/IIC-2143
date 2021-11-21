@@ -6,9 +6,8 @@ module Api
       before_action :authenticate_user!
 
       def index
-        return respond_api_error(:bad_request, message: 'missing course_id param') unless params[:course_id]
-
-        respond_with Review.find_by(course_student: course_student)
+        reviews = Review.includes(course_student: :student).where(course_student: course_student)
+        respond_with(reviews, author: true)
       end
 
       def show
@@ -16,8 +15,11 @@ module Api
       end
 
       def create
-        respond_with Review.find_or_create_by(
-          permitted_params.merge(course_student: course_student)
+        respond_with(
+          Review
+            .includes(course_student: :student)
+            .find_or_create_by(permitted_params.merge(course_student: course_student)),
+          author: true
         )
       end
 
@@ -28,8 +30,10 @@ module Api
       private
 
       def course_student
-        course = Course.find(params[:course_id])
-        @course_student ||= CourseStudent.find_by(student: current_user, course: course)
+        @course_student ||= CourseStudent.find_by(
+          student: current_user,
+          course_id: params[:course_id]
+        )
       end
 
       def permitted_params

@@ -22,7 +22,10 @@ RSpec.describe Api::V1::ReviewsController, type: :controller do
 
   describe 'GET #show' do
     def do_request
-      get :show, params: { id: review.id }, format: :json
+      get :show, params: {
+        course_id: course.id,
+        id: review.id
+      }, format: :json
     end
 
     before do
@@ -65,7 +68,10 @@ RSpec.describe Api::V1::ReviewsController, type: :controller do
     let!(:review) { create(:review) }
 
     def do_request
-      delete :destroy, params: { id: review.id }, format: :json
+      delete :destroy, params: {
+        id: review.id,
+        course_id: course.id
+      }, format: :json
     end
 
     describe 'response status' do

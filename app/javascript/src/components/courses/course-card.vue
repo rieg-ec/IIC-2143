@@ -8,7 +8,7 @@
     </div>
     <div class="flex flex-col items-start w-full h-full p-1 p-2 space-y-2">
       <span class="text-lg">{{ course.name }}</span>
-      <span class="text-sm text-gray-500">{{ course.teacher.fullName }}</span>
+      <span class="text-sm text-gray-500">{{ course.teacher.attributes.fullName }}</span>
       <review-rating
         :reviews="course.reviews"
       />
@@ -26,15 +26,16 @@ export default {
   name: 'CourseCard',
   components: { ReviewRating },
   props: {
-    courseUrl: { type: String, required: true },
     course: { type: Object, required: true },
   },
-  mounted() {
+  data() {
     console.log(this.course);
+
+    return {};
   },
   methods: {
     handleClick() {
-      window.location = this.courseUrl;
+      window.location = `/courses/${this.course.id}`;
     },
   },
 };

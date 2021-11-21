@@ -4,19 +4,17 @@ class CoursesController < ApplicationController
   before_action :authenticate_user!
 
   def show
-    @lectures = course.lectures
-    @reviews = course.reviews
-    @is_student = student?
+    @course = Course.includes(:lectures, :students).find(params[:id])
   end
 
-  def new; end
+  def new
+    @categories = Course.category.values
+  end
 
   def create
-    @course = Course.new(
-      course_params.merge(teacher: current_user)
-    )
-    if @course.save
-      redirect_to course_path(@course)
+    course = Course.new(course_params)
+    if course.save
+      redirect_to courses_path
     else
       render :new
     end
@@ -29,12 +27,11 @@ class CoursesController < ApplicationController
   end
 
   def course_params
-    params.require(:course).permit(:category, :name, :end_date)
-  end
-
-  def student?
-    return true unless CourseStudent.where(student: current_user, course: course).empty?
-
-    false
+    params.require(:course).permit(
+      :category,
+      :name,
+      :end_date,
+      :background
+    )
   end
 end

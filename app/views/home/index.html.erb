@@ -22,7 +22,7 @@
     <div class="w-full bg-gray-100">
       <div class="py-2 md:container md:mx-auto">
         <course-carousel
-          :courses="<%= SerializeUtils.map_to_json(@courses, each_serializer: FullCourseSerializer) %> | camelizeKeys"
+          :courses="<%= ActiveModel::SerializableResource.new(@courses, teacher: true, reviews: true).to_json %> | camelizeKeys"
         >
         </course-carousel>
       </div>

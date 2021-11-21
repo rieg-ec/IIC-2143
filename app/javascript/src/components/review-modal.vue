@@ -38,7 +38,6 @@
 
 <script>
 import Modal from './shared/modal';
-import reviewsApi from '../api/reviews.js';
 
 export default {
   name: 'ReviewModal',
@@ -54,19 +53,9 @@ export default {
   },
   methods: {
     async confirmClick() {
-      try {
-        await reviewsApi.create(this.courseId, {
-          body: this.body,
-          rating: this.rating,
-        });
-        location.reload();
-      } catch (e) {
-        console.log(e);
-      }
-      this.$emit('confirm');
+      this.$emit('confirm', this.body, this.rating);
     },
     async cancelClick() {
-      alert('cancel');
       this.$emit('cancel');
     },
   },

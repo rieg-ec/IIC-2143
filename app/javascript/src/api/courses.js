@@ -16,4 +16,11 @@ export default {
       url: `${path}/${courseId}/register`,
     });
   },
+  create(form) {
+    return api({
+      method: 'post',
+      url: '/courses',
+      data: form,
+    });
+  },
 };
