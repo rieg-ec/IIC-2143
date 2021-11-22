@@ -7,13 +7,9 @@
       <font-awesome-icon :icon="['fas', 'caret-left']"></font-awesome-icon>
       <span>Volver</span>
     </button>
-    <div class="flex flex-col items-center ">
+    <div class="flex flex-col items-center">
       <course-lecture
-        :course="<%= SerializeUtils.to_json_value(@course)  %> | camelizeKeys"
-        :lecture="<%= SerializeUtils.to_json_value(@lecture) %> | camelizeKeys"
-      <% unless @questions.empty? %>
-        :questions="<%= SerializeUtils.map_to_json(@questions) %> | camelizeKeys"
-      <% end %>
+        :lecture="<%= LectureSerializer.new(@lecture).to_json  %> | camelizeKeys"
       >
       </course-lecture>  
     </div>

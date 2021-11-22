@@ -1,30 +1,28 @@
 import humps from 'humps';
 import api from './api';
 
-const path = '/api/v1/questions';
-
 export default {
-  getAll(params = {}) {
+  getAll(courseId, params = {}) {
     return api({
       method: 'get',
-      url: path,
+      url: `/api/v1/courses/${courseId}/questions`,
       params: humps.decamelizeKeys(params),
     });
   },
   create(courseId, question) {
     return api({
       method: 'post',
-      url: path,
+      url: `/api/v1/courses/${courseId}/questions`,
       data: {
         ...humps.decamelizeKeys(question),
         ...humps.decamelizeKeys({ courseId }),
       },
     });
   },
-  delete(questionId) {
+  delete(courseId, questionId) {
     return api({
       method: 'delete',
-      url: `${path}/${questionId}`,
+      url: `/api/v1/courses/${courseId}/questions/${questionId}`,
     });
   },
 };

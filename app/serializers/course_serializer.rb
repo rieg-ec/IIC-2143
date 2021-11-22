@@ -13,6 +13,10 @@ class CourseSerializer < BaseSerializer
     object.reviews ? nested_resources(object.reviews) : nil
   end
 
+  attribute(:questions, if: -> { instance_options[:questions] }) do
+    object.questions ? nested_resources(object.questions) : nil
+  end
+
   attribute(:lectures, if: -> { instance_options[:lectures] }) do
     object.lectures ? nested_resources(object.lectures) : nil
   end

@@ -4,8 +4,7 @@ class LecturesController < ApplicationController
   before_action :authenticate_user!
 
   def show
-    @course = lecture.course
-    @questions = @course.questions
+    @lecture = Lecture.find(params[:id])
   end
 
   def create; end
