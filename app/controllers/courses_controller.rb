@@ -12,12 +12,10 @@ class CoursesController < ApplicationController
   end
 
   def create
-    course = Course.new(course_params)
-    if course.save
-      redirect_to courses_path
-    else
-      render :new
-    end
+    course = Course.new(course_params.merge(teacher: current_user))
+    course.save!
+
+    redirect_to course_path(course)
   end
 
   private
