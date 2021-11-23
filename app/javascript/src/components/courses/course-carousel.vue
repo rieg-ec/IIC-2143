@@ -30,9 +30,11 @@ export default {
     courses: { type: Array, required: true },
     perPage: { type: Number, default: 4 },
   },
-  perPageLocal() {
-    return this.courses.length > this.perPage ? this.perPage :
-      this.courses.length;
+  computed: {
+    perPageLocal() {
+      return this.courses.length > this.perPage ? this.perPage :
+        this.courses.length;
+    },
   },
 };
 </script>

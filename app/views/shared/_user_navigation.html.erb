@@ -1,0 +1,9 @@
+<nav class="flex flex-row items-center justify-between w-full p-5 bg-red-500">
+  <div class="flex items-center flex-shrink-0 h-full mr-6 text-white">
+    <%= link_to 'Hobbies App', root_url, class:"font-semibold text-xl tracking-tight" %>
+  </div>
+  <%= link_to destroy_session_path(current_user), method: :delete, class: 'flex flex-row space-x-2 items-center' do %>
+    <font-awesome-icon class="text-xl text-white" :icon="['fa', 'user']"></font-awesome-icon>
+    <span class="text-white">Cerrar sesión</span>
+  <% end %>
+</nav>

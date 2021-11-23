@@ -5,11 +5,11 @@
         <div class="flex flex-col items-center space-y-4">
           <img class="w-32 rounded-full" src="<%= current_user.avatar_url %>" alt="user avatar" />
           <%= f.file_field :avatar, accept: 'image/png,image/gif,image/jpeg' %>
-            <input type="first_name" name="user[first_name]" placeholder="Nombre" class="text-input" value="<%=@user.first_name%>">
-            <input type="last_name" name="user[last_name]" placeholder="Apellido" class="text-input" value="<%=@user.last_name%>">
-            <input type="email" name="user[email]" placeholder="Ingresa tu email" class="text-input" value="<%=@user.email%>">
-            <input type="password" name="user[password]" autocomplete="new-password" minlength="<%= @minimum_password_length %>" placeholder="Ingresa tu contraseña" class="text-input" value="<%=@user.password%>">
-            <input type="password" name="user[password_confirmation]" autocomplete="new-password" minlength="<%= @minimum_password_length %>" placeholder="Confirma tu contraseña" class="text-input" value="<%=@user.password%>">
+            <input type="first_name" name="user[first_name]" placeholder="Nombre" class="text-input" value="<%=current_user.first_name%>">
+            <input type="last_name" name="user[last_name]" placeholder="Apellido" class="text-input" value="<%=current_user.last_name%>">
+            <input type="email" name="user[email]" placeholder="Ingresa tu email" class="text-input" value="<%=current_user.email%>">
+            <input type="password" name="user[password]" autocomplete="new-password" minlength="<%= @minimum_password_length %>" placeholder="Ingresa tu contraseña" class="text-input" value="<%=current_user.password%>">
+            <input type="password" name="user[password_confirmation]" autocomplete="new-password" minlength="<%= @minimum_password_length %>" placeholder="Confirma tu contraseña" class="text-input" value="<%=current_user.password%>">
           </div>
         <div class="pt-12">
           <input type="submit" value="Guardar perfil" class="px-5 py-3 text-white bg-red-500 rounded-lg">
