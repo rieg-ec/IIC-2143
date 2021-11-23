@@ -25,6 +25,7 @@ import {
   faStarHalfAlt,
   faCaretLeft,
   faUser,
+  faPencilAlt,
 } from '@fortawesome/free-solid-svg-icons';
 import { InlineSvgPlugin } from 'vue-inline-svg';
 
@@ -35,6 +36,7 @@ import CourseCarousel from '../src/components/courses/course-carousel.vue';
 import ReviewRating from '../src/components/review-rating.vue';
 import QuestionModal from '../src/components/questions/question-modal.vue';
 import CourseCreateForm from '../src/components/courses/course-create-form.vue';
+import UserEditForm from '../src/components/users/user-edit-form.vue';
 
 import '../css/application.css';
 
@@ -48,10 +50,11 @@ Vue.component('course-lecture', CourseLecture);
 Vue.component('course-create-form', CourseCreateForm);
 Vue.component('question-modal', QuestionModal);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
+Vue.component('user-edit-form', UserEditForm);
 
 Vue.use(InlineSvgPlugin);
 
-library.add(faCaretLeft, fasStar, farStar, faStarHalfAlt, faUser);
+library.add(faCaretLeft, fasStar, farStar, faStarHalfAlt, faUser, faPencilAlt);
 
 document.addEventListener('turbolinks:load', () => {
   if (document.getElementById('vue-app')) {

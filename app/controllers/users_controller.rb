@@ -17,14 +17,12 @@ class UsersController < ApplicationController
   def edit; end
 
   def update
-    return redirect_to user_path if user.update(update_params)
-
-    render :edit
+    render json: current_user.update!(user_params)
   end
 
   private
 
-  def update_params
+  def user_params
     params.require(:user).permit(
       :avatar,
       :first_name,

@@ -15,15 +15,13 @@
           placeholder="Deja aqui tu review..."
           rows="4"
         />
-        <div class="flex flex-col space-y-1">
-          <label>Qué rating del 1 al 5 le darias al curso?</label>
-          <input
-            class="w-32"
-            type="number"
-            min="0"
-            max="5"
-            v-model="rating"
-          >
+        <div class="flex flex-col space-y-2">
+          <number-input
+            :label="'Qué rating del 1 al 5 le darias al curso?'"
+            :required="false"
+            :variant="'red'"
+            :max="5"
+          />
         </div>
       </div>
     </template>
@@ -38,10 +36,11 @@
 
 <script>
 import Modal from './shared/modal';
+import NumberInput from './shared/number-input.vue';
 
 export default {
   name: 'ReviewModal',
-  components: { Modal },
+  components: { Modal, NumberInput },
   props: {
     courseId: { type: Number, required: true },
   },

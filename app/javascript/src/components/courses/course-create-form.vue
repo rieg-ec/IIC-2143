@@ -42,20 +42,13 @@
         label="Duración del curso (semanas)"
         variant="red"
       />
-      <label
-        for="background"
-        class="w-full py-10 text-center border-2 border-gray-400 border-dashed rounded cursor-pointer"
+      <file-input
+        @upload="handleFile"
       >
-        {{ background ? background.name : 'Foto de curso' }}
-      </label>
-      <input
-        type="file"
-        class="hidden"
-        id="background"
-        accept="image/jpeg, image/png"
-        @change="saveFile($event)"
-      >
-
+        <div class="w-full py-10 text-center border-2 border-gray-400 border-dashed rounded">
+          {{ background ? background.name : 'Foto del curso' }}
+        </div>
+      </file-input>
       <button
         type="submit"
         class="w-full py-2 main-btn-custom"
@@ -71,10 +64,11 @@ import courseApi from '../../api/courses';
 import ShortTextInput from '../shared/short-text-input.vue';
 import BaseInput from '../shared/base-input.vue';
 import NumberInput from '../shared/number-input.vue';
+import FileInput from '../shared/file-input.vue';
 
 export default {
   name: 'CourseCreateForm',
-  components: { ShortTextInput, BaseInput, NumberInput },
+  components: { ShortTextInput, BaseInput, NumberInput, FileInput },
   props: {
     categories: { type: Array, required: true },
   },
@@ -84,21 +78,17 @@ export default {
       description: '',
       duration: 1,
       selectedCategory: this.categories[0],
-      background: '',
       loading: false,
+      background: null,
     };
   },
   methods: {
     // eslint-disable-next-line
     async createCourse() {
-      if (
-        !this.name ||
-        !this.selectedCategory ||
-        !this.background ||
-        !this.duration
-      ) {
+      if (!this.validInputs) {
         return alert('Debe llenar todos los campos');
       }
+
       try {
         this.loading = true;
         await courseApi.create(this.form);
@@ -109,8 +99,8 @@ export default {
         this.loading = false;
       }
     },
-    saveFile(event) {
-      this.background = event.target.files[0];
+    handleFile(file) {
+      this.background = file;
     },
   },
   computed: {
@@ -130,6 +120,10 @@ export default {
       form.append('course[end_date]', this.endDate);
 
       return form;
+    },
+    validInputs() {
+      return !!this.name && !!this.selectedCategory &&
+          !!this.background && !!this.duration;
     },
   },
 };

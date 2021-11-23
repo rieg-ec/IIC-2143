@@ -6,7 +6,7 @@
       :per-page="perPageLocal"
     >
       <slide
-        class="px-2"
+        class="self-start px-2"
         v-for="(course, index) in courses"
         :key="index"
       >
