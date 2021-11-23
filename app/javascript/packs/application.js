@@ -24,6 +24,7 @@ import {
   faStar as fasStar,
   faStarHalfAlt,
   faCaretLeft,
+  faUser,
 } from '@fortawesome/free-solid-svg-icons';
 import { InlineSvgPlugin } from 'vue-inline-svg';
 
@@ -50,9 +51,9 @@ Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 Vue.use(InlineSvgPlugin);
 
-library.add(faCaretLeft, fasStar, farStar, faStarHalfAlt);
+library.add(faCaretLeft, fasStar, farStar, faStarHalfAlt, faUser);
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbolinks:load', () => {
   if (document.getElementById('vue-app')) {
     if (process.env.RAILS_ENV === 'production') {
       console.log('production mode');

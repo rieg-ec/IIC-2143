@@ -6,24 +6,20 @@
           ¡Bienvenido a Hobbies App!
         </h1>
       </div>
-      <div class="flex flex-row items-center justify-between w-full">
-        <div class="flex flex-col px-2 space-y-6">
+      <div class="flex flex-row items-center justify-between w-full max-w-6xl">
+        <div class="flex flex-col space-y-6">
           <h2 class="text-3xl font-bold">Aprende sin limites.</h2>
           <p class="font-normal text-gray-500">Inscribete en cursos para tus hobbies favoritos, o bien, sube cursos tu mismo.</p>
-          <div class="flex px-2">
-            <%= link_to 'Crear Curso', new_course_path, class:"md:w-auto bg-red-500 hover:bg-red-200 text-white font-bold py-2 px-4 border border-red-200 rounded" %>
-          </div>
+          <%= link_to 'Crear Curso', new_course_path, class:"self-start hover:opacity-80 text-white bg-red-500 font-bold py-2 px-4 rounded" %>
         </div>
-        <div class="px-24">
-          <img class="h-64" src="<%= image_url('landing-illustration.png') %>">
+        <div class="px-8">
+          <img class="max-h-80" src="<%= image_url('home-bg.png') %>">
         </div>
-      </div>
-      <div class="flex flex-col w-full space-y-6">
-        <span class="text-xl font-medium">Cursos mas populares:</span>
       </div>
     </div>
-    <div class="w-full bg-gray-100">
-      <div class="py-2 md:container md:mx-auto">
+    <div class="w-full py-4 bg-gray-100">
+      <div class="flex flex-col md:container md:mx-auto space-y-8">
+        <span class="px-2 text-xl font-medium">Cursos mas populares:</span>
         <course-carousel
           :courses="<%= ActiveModel::SerializableResource.new(@courses, teacher: true, reviews: true).to_json %> | camelizeKeys"
         >
