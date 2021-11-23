@@ -1,10 +1,13 @@
 <template>
   <div
     @click="handleClick"
-    class="w-64 overflow-hidden border border-transparent border-double rounded-lg cursor-pointer hover:border-gray-200"
+    class="w-64 h-64 overflow-hidden border border-transparent border-double rounded-lg cursor-pointer hover:border-gray-200"
   >
-    <div>
-      <img :src="course.backgroundUrl">
+    <div class="bg-red-50 h-1/2">
+      <img
+        :src="course.backgroundUrl"
+        class="w-full h-full object-fit"
+      >
     </div>
     <div class="flex flex-col items-start w-full h-full p-1 p-2 space-y-2">
       <span class="text-lg">{{ course.name }}</span>

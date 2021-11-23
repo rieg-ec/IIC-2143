@@ -7,7 +7,7 @@
   >
     <template #input>
       <div
-        class="flex flex-row justify-between w-full overflow-hidden rounded-xl"
+        class="flex flex-row justify-between w-full my-2 overflow-hidden rounded-xl"
         :class="variantClass"
       >
         <div
@@ -39,7 +39,8 @@ export default {
   name: 'NumberInput',
   inheritAttrs: false,
   props: {
-    max: { type: Number, default: () => 0 },
+    max: { type: Number, default: 999 },
+    min: { type: Number, default: 0 },
     label: {
       type: String,
       default: '',
@@ -68,12 +69,13 @@ export default {
   },
   methods: {
     add() {
-      if (this.max && this.counter > this.max) return;
+      if (this.counter >= this.max) return;
 
       this.counter++;
     },
     substract() {
-      if (this.counter < 1) return;
+      if (this.counter <= this.min) return;
+
       this.counter--;
     },
   },

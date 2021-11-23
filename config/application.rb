@@ -32,5 +32,9 @@ module HobbiesApp
       g.view_specs false
       g.helper_specs false
     end
+
+    config.after_initialize do
+      ::CATEGORIES = %i[math sports pets food science art videogames music].freeze
+    end
   end
 end
