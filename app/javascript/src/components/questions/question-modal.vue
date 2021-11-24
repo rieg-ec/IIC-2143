@@ -28,7 +28,6 @@
 
 <script>
 import Modal from '../shared/modal';
-import questionsApi from '../../api/questions.js';
 
 export default {
   name: 'ReviewModal',
@@ -43,17 +42,9 @@ export default {
   },
   methods: {
     async confirmClick() {
-      try {
-        await questionsApi.create(this.courseId, {
-          body: this.body,
-        });
-      } catch (e) {
-        console.log(e);
-      }
-      this.$emit('confirm');
+      this.$emit('confirm', this.body);
     },
     async cancelClick() {
-      alert('cancel');
       this.$emit('cancel');
     },
   },
