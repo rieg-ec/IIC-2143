@@ -6,12 +6,16 @@ module Api
       before_action :authenticate_user!
 
       def index
-        respond_with Question.where(course_student: course_student)
+        questions = Question.includes(course_student: :student).where(course_student: course_student)
+        respond_with(questions, author: true)
       end
 
       def create
-        respond_with Question.find_or_create_by(
-          permitted_params.merge(course_student: course_student)
+        respond_with(
+          Question
+            .includes(course_student: :student)
+            .create!(permitted_params.merge(course_student: course_student)),
+          author: true
         )
       end
 

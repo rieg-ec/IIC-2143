@@ -20,12 +20,24 @@
           class="underline cursor-pointer"
           @click="reviewsTab = !reviewsTab"
         >
-          {{ reviewsTab ? 'Ver clases' : 'Ver reviews' }}
+           Ver clases
         </a>
+        <a
+          class="underline cursor-pointer"
+          @click="reviewsTab = !reviewsTab"
+        >
+          Ver reviews
+        </a>
+        <a 
+          class="underline cursor-pointer"
+          @click="questionsTab = !questionsTab"
+          :disabled="questionsTab ? true : false"
+        >
+          Ver preguntas</a>
       </div>
     </div>
     <div
-      v-if="!reviewsTab"
+      v-if="!reviewsTab && !questionsTab"
       class="flex flex-col space-y-4"
     >
       <div
@@ -56,7 +68,7 @@
       </div>
     </div>
     <div
-      v-else
+      v-if="reviewsTab && !questionsTab"
       class="flex flex-col p-2 space-y-4"
     >
       <div
@@ -106,26 +118,71 @@
         </div>
       </div>
     </div>
+    <div 
+      v-else-if="!reviewsTab && questionsTab"
+      class="flex flex-col p-2 space-y-4"
+    >
+      <div
+        v-if="!questions.length"
+        class="w-full py-12 text-center"
+      >
+        <span class="text-lg text-gray-300">No hay preguntas.</span>
+      </div>
+      <div
+        v-for="(question, index) in questions"
+        :key="index"
+        class="flex flex-row justify-between w-full p-2 border border-gray-200 hover:bg-gray-50 rounded-xl"
+      >
+        <div class="flex flex-col items-left">>
+          <div class="flex flex-row items-center justify-between w-full space-x-4">
+            <span class="text-base font-medium">{{ question.author.attributes.fullName }}</span>>
+              <p class="text-sm text-gray-700">{{ question.body }}</p>
+          </div>
+          <div class="flex items-center justify-center h-full px-2">
+          <button
+            v-if="currentUserQuestionIds.includes(question.id)"
+            @click="deleteQuestion(question.id)"
+            class="main-btn"
+          >
+            Eliminar
+          </button>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="flex justify-center w-full py-4">
       <button
-        v-if="isCurrentUserStudent && reviewsTab && !currentUserReviewId"
+        v-if="isCurrentUserStudent && reviewsTab && !currentUserReviewId && !questionsTab"
         @click="openReviewModal = true"
         class="course-btn"
       >
         Dejar review
       </button>
       <button
-        v-else-if="!isCurrentUserStudent && !reviewsTab"
+        v-else-if="!isCurrentUserStudent && !reviewsTab && !questionsTab"
         @click="registerCourse"
         class="course-btn"
       >
         Inscribirse
+      </button>
+      <button
+        v-else-if="isCurrentUserStudent && !reviewsTab && questionsTab"
+        @click="openQuestionModal = true"
+        class="course-btn"
+      >
+        Dejar Pregunta
       </button>
     </div>
     <review-modal
       @cancel="openReviewModal = false"
       @confirm="createReview"
       v-if="openReviewModal"
+      :course-id="course.id"
+    />
+    <question-modal
+      @cancel="openQuestionModal = false"
+      @confirm="createQuestion"
+      v-if="openQuestionModal"
       :course-id="course.id"
     />
   </div>
@@ -136,10 +193,12 @@ import coursesApi from '../../api/courses';
 import ReviewModal from '../review-modal.vue';
 import reviewsApi from '../../api/reviews';
 import ReviewRating from '../review-rating.vue';
+import QuestionModal from '../questions/question-modal.vue';
+import questionsApi from '../../api/questions';
 
 export default {
   name: 'CourseInfo',
-  components: { ReviewModal, ReviewRating },
+  components: { ReviewModal, ReviewRating, QuestionModal },
   props: {
     course: { type: Object, required: true },
     currentUser: { type: Object, required: true },
@@ -147,12 +206,16 @@ export default {
   data() {
     return {
       reviewsTab: false,
+      questionsTab: false,
       openReviewModal: false,
+      openQuestionModal: false,
       reviews: [],
+      questions: [],
     };
   },
   async created() {
     this.reviews = await reviewsApi.getAll(this.course.id);
+    this.questions = await questionsApi.getAll(this.course.id);
   },
   computed: {
     isCurrentUserStudent() {
@@ -164,6 +227,9 @@ export default {
       const currentUserReview = this.reviews.find((review) => review.author.attributes.id === this.currentUser.id);
 
       return currentUserReview && currentUserReview.id;
+    },
+    currentUserQuestionIds() {
+      return this.questions.filter((question) => question.author.attributes.id === this.currentUser.id).map((question) => question.id);
     },
   },
   methods: {
@@ -188,6 +254,25 @@ export default {
     goToLecture(id) {
       window.location = `/courses/${this.course.id}/lectures/${id}`;
     },
+    async createQuestion(body) {
+      console.log(body);
+      try {
+        const response = await questionsApi.create(this.course.id, body);
+        this.questions.push(response);
+      } catch (e) {
+        alert('Ocurrió un error');
+      } finally {
+        this.openQuestionModal = false;
+      }
+    },
+    async deleteQuestion(id) {
+      await questionsApi.delete(this.course.id, id);
+      this.questions = this.questions.filter((question) => question.id !== id);
+    },
+    cambio(){
+      this.questionsTab = !this.questionsTab
+      this.reviewsTab = !this.reviewsTab
+    }
   },
 };
 </script>

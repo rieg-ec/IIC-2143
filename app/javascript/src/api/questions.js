@@ -9,13 +9,12 @@ export default {
       params: humps.decamelizeKeys(params),
     });
   },
-  create(courseId, question) {
+  create(courseId, body) {
     return api({
       method: 'post',
       url: `/api/v1/courses/${courseId}/questions`,
       data: {
-        ...humps.decamelizeKeys(question),
-        ...humps.decamelizeKeys({ courseId }),
+        question: { body }
       },
     });
   },
