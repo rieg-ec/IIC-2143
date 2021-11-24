@@ -17,6 +17,7 @@
         />
         <div class="flex flex-col space-y-2">
           <number-input
+            v-model="rating"
             :label="'Qué rating del 1 al 5 le darias al curso?'"
             :required="false"
             :variant="'red'"
