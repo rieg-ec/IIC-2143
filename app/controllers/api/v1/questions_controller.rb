@@ -6,8 +6,9 @@ module Api
       before_action :authenticate_user!
 
       def index
-        questions = Question.includes(course_student: :student).where(course_student: course_student)
-        respond_with(questions, author: true)
+        course = Course.includes(:questions, :students).find(params[:course_id])
+
+        respond_with(course.questions, author: true)
       end
 
       def create

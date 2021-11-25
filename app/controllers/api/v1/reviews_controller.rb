@@ -6,8 +6,9 @@ module Api
       before_action :authenticate_user!
 
       def index
-        reviews = Review.includes(course_student: :student).where(course_student: course_student)
-        respond_with(reviews, author: true)
+        course = Course.includes(:reviews, :students).find(params[:course_id])
+
+        respond_with(course.reviews, author: true)
       end
 
       def show
@@ -16,10 +17,9 @@ module Api
 
       def create
         respond_with(
-          Review
-            .includes(course_student: :student)
-            .find_or_create_by(permitted_params.merge(course_student: course_student)),
-          author: true
+          Review.includes(:course_student).find_or_create_by(
+            permitted_params.merge(course_student: course_student)
+          ), author: true
         )
       end
 

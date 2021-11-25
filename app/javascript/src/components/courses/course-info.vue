@@ -141,7 +141,7 @@ export default {
     async createReview(body, rating) {
       try {
         const response = await reviewsApi.create(this.course.id, { body, rating });
-        this.reviews.push(response);
+        this.reviews.unshift(response);
       } catch (e) {
         alert('Ocurrió un error');
       } finally {
@@ -155,7 +155,7 @@ export default {
     async createQuestion(body) {
       try {
         const response = await questionsApi.create(this.course.id, body);
-        this.questions.push(response);
+        this.questions.unshift(response);
       } catch (e) {
         alert('Ocurrió un error');
       } finally {
