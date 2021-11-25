@@ -32,6 +32,11 @@ export default {
     reviews: { type: Array, required: true },
     textSize: { type: String, default: 'text-sm' },
   },
+  data() {
+    console.log(this.reviews, this.reviews.length);
+
+    return {};
+  },
   computed: {
     starCount() {
       const full = Math.floor(this.average);
@@ -44,7 +49,7 @@ export default {
       if (!!this.reviews.length) {
         return Math.round(
           10 * this.reviews
-            .map(review => review.attributes.rating)
+            .map(review => review.rating)
             .reduce((prev, current) => prev + current) / this.reviews.length,
         ) / 10;
       }

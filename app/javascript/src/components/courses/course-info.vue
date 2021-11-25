@@ -44,9 +44,16 @@
         <button
           @click="handleModalOpen"
           class="main-btn"
-          v-if="!lecturesTab"
+          v-if="!lecturesTab && isCurrentUserStudent"
         >
           {{ questionsTab ? 'Hacer pregunta' : 'Dejar review' }}
+        </button>
+        <button
+          @click="registerCourse"
+          class="main-btn"
+          v-if="!isCurrentUserStudent"
+        >
+          Inscribirme
         </button>
       </div>
       <div class="w-full">
@@ -136,7 +143,7 @@ export default {
         const response = await reviewsApi.create(this.course.id, { body, rating });
         this.reviews.push(response);
       } catch (e) {
-        alert('Rating debe estar entre 0 y 5');
+        alert('Ocurrió un error');
       } finally {
         this.openReviewModal = false;
       }
