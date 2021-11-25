@@ -31,11 +31,6 @@ export default {
   props: {
     course: { type: Object, required: true },
   },
-  data() {
-    console.log(this.course);
-
-    return {};
-  },
   methods: {
     handleClick() {
       window.location = `/courses/${this.course.id}`;
