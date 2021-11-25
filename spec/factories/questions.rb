@@ -3,6 +3,6 @@
 FactoryBot.define do
   factory :question do
     course_student
-    body { 'MyText' }
+    body { Faker::Lorem.question(word_count: rand(6..36)) }
   end
 end

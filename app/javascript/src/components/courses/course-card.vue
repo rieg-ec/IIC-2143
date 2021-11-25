@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import ReviewRating from '../review-rating.vue';
+import ReviewRating from '../reviews/review-rating.vue';
 
 export default {
   name: 'CourseCard',
