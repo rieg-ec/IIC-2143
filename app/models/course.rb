@@ -3,6 +3,8 @@
 class Course < ApplicationRecord
   extend Enumerize
 
+  CATEGORIES = %i[math sports pets food science art videogames music].freeze
+
   enumerize :category, in: CATEGORIES
 
   has_many :course_students, dependent: :destroy
