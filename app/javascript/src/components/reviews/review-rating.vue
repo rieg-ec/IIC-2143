@@ -20,7 +20,7 @@
         :icon="['far', 'star']"
       />
     </div>
-    <span>({{ reviews.length }})</span>
+    <span>({{ localReviews.length }})</span>
   </div>
 </template>
 
@@ -32,11 +32,6 @@ export default {
     reviews: { type: Array, required: true },
     textSize: { type: String, default: 'text-sm' },
   },
-  data() {
-    console.log(this.reviews, this.reviews.length);
-
-    return {};
-  },
   computed: {
     starCount() {
       const full = Math.floor(this.average);
@@ -45,12 +40,21 @@ export default {
 
       return { full, half, empty };
     },
+    localReviews() {
+      return this.reviews.map((review) => {
+        if (review.hasOwnProperty('attributes')) {
+          return { ...review, ...review.attributes };
+        }
+
+        return review;
+      });
+    },
     average() {
-      if (!!this.reviews.length) {
+      if (!!this.localReviews.length) {
         return Math.round(
-          10 * this.reviews
+          10 * this.localReviews
             .map(review => review.rating)
-            .reduce((prev, current) => prev + current) / this.reviews.length,
+            .reduce((prev, current) => prev + current) / this.localReviews.length,
         ) / 10;
       }
 
