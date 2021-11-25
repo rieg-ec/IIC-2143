@@ -44,7 +44,7 @@ export default {
       if (!!this.reviews.length) {
         return Math.round(
           10 * this.reviews
-            .map(review => review.attributes.rating)
+            .map(review => review.rating)
             .reduce((prev, current) => prev + current) / this.reviews.length,
         ) / 10;
       }

@@ -36,8 +36,8 @@
 </template>
 
 <script>
-import Modal from './shared/modal';
-import NumberInput from './shared/number-input.vue';
+import Modal from '../shared/modal';
+import NumberInput from '../shared/number-input.vue';
 
 export default {
   name: 'ReviewModal',

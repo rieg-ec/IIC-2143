@@ -6,7 +6,9 @@ FactoryBot.define do
     course
 
     trait :with_review do
-      review
+      after(:create) do |cs|
+        create(:review, course_student: cs)
+      end
     end
   end
 end

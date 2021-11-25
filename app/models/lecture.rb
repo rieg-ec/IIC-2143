@@ -10,6 +10,10 @@ class Lecture < ApplicationRecord
   def video_url
     Rails.application.routes.url_helpers.rails_blob_url(video, only_path: true)
   end
+
+  def duration
+    ojbect.video.blob.metadata.fetch(:duration, nil)
+  end
 end
 
 # == Schema Information

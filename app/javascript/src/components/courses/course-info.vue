@@ -10,168 +10,61 @@
       <h1 class="text-2xl font-semibold">
         {{ course.name }}
       </h1>
-      <div class="flex flex-row items-center space-x-4">
-        <span class="text-gray-600">Jose Portillo</span>
-        <review-rating
+      <div class="flex flex-row justify-between">
+        <div class="flex flex-row items-center space-x-4">
+          <span>{{ course.teacher.attributes.fullName }}</span>
+          <review-rating
+            :reviews="reviews"
+            :text-size="'text-base'"
+          />
+          <div class="flex flex-row space-x-4 bg-blue-50">
+            <button
+              @click="handleClick('reviews')"
+              class="underline"
+            >
+              Ver reviews
+            </button>
+            <button
+              @click="handleClick('questions')"
+              class="underline"
+            >
+              Ver preguntas
+            </button>
+            <button
+              @click="handleClick('lectures')"
+              class="underline"
+            >
+              Ver clases
+            </button>
+          </div>
+        </div>
+        <button
+          @click="handleModalOpen"
+          class="main-btn"
+          v-if="!lecturesTab"
+        >
+          {{ questionsTab ? 'Hacer pregunta' : 'Dejar review' }}
+        </button>
+      </div>
+      <div class="w-full">
+        <reviews-list
+          v-if="reviewsTab"
           :reviews="reviews"
-          :text-size="'text-base'"
+          :current-user="currentUser"
+          @delete-review="deleteReview"
         />
-        <a
-          class="underline cursor-pointer"
-          @click="reviewsTab = !reviewsTab"
-        >
-           Ver clases
-        </a>
-        <a
-          class="underline cursor-pointer"
-          @click="reviewsTab = !reviewsTab"
-        >
-          Ver reviews
-        </a>
-        <a 
-          class="underline cursor-pointer"
-          @click="questionsTab = !questionsTab"
-          :disabled="questionsTab ? true : false"
-        >
-          Ver preguntas</a>
+        <questions-list
+          v-if="questionsTab"
+          :questions="questions"
+          :current-user="currentUser"
+          @delete-question="deleteQuestion"
+        />
+        <course-lectures-list
+          v-if="lecturesTab"
+          :lectures="course.lectures"
+          @lecture-click="goToLecture"
+        />
       </div>
-    </div>
-    <div
-      v-if="!reviewsTab && !questionsTab"
-      class="flex flex-col space-y-4"
-    >
-      <div
-        v-if="!course.lectures.length"
-        class="w-full py-12 text-center"
-      >
-        <span class="text-lg text-gray-300">No hay clases.</span>
-      </div>
-      <div
-        v-for="(lecture, index) in course.lectures"
-        :key="index"
-        @click="goToLecture(lecture.id)"
-        class="flex flex-row justify-between w-full p-2 border border-gray-200 cursor-pointer hover:bg-gray-50 rounded-xl"
-      >
-        <div class="flex flex-col w-full space-y-4">
-          <span
-            class="text-base font-medium"
-          >
-            {{ index }} {{ lecture.title }}
-          </span>
-          <p class="text-sm text-gray-700">
-            {{ lecture.description }}
-          </p>
-        </div>
-        <div class="flex items-center px-2 space-y-2">
-          <span class="text-gray-500 whitespace-nowrap">1 hr 26 min</span>
-        </div>
-      </div>
-    </div>
-    <div
-      v-if="reviewsTab && !questionsTab"
-      class="flex flex-col p-2 space-y-4"
-    >
-      <div
-        v-if="!reviews.length"
-        class="w-full py-12 text-center"
-      >
-        <span class="text-lg text-gray-300">No hay reviews.</span>
-      </div>
-      <div
-        v-for="(review, index) in reviews"
-        :key="index"
-        class="flex flex-row justify-between w-full p-2 border border-gray-200 hover:bg-gray-50 rounded-xl"
-      >
-        <div class="flex flex-col items-left">
-          <div class="flex flex-row items-center justify-between w-full space-x-4">
-            <span class="text-base font-medium">{{ review.author.attributes.fullName }}</span>
-            <div class="flex flex-row text-yellow-600">
-              <font-awesome-icon
-                v-for="ratingIndex in review.full"
-                :key="ratingIndex + 'full'"
-                :icon="['fas', 'star']"
-              />
-              <font-awesome-icon
-                v-if="review.half"
-                :key="ratingIndex + 'half'"
-                :icon="['fas', 'star-half-alt']"
-              />
-              <font-awesome-icon
-                v-for="ratingIndex in review.empty"
-                :key="ratingIndex + 'empty'"
-                :icon="['far', 'star']"
-              />
-            </div>
-          </div>
-          <p class="text-sm text-gray-700">
-            {{ review.body }}
-          </p>
-        </div>
-        <div class="flex items-center justify-center h-full px-2">
-          <button
-            v-if="review.id === currentUserReviewId"
-            @click="deleteReview(review.id)"
-            class="main-btn"
-          >
-            Eliminar
-          </button>
-        </div>
-      </div>
-    </div>
-    <div 
-      v-else-if="!reviewsTab && questionsTab"
-      class="flex flex-col p-2 space-y-4"
-    >
-      <div
-        v-if="!questions.length"
-        class="w-full py-12 text-center"
-      >
-        <span class="text-lg text-gray-300">No hay preguntas.</span>
-      </div>
-      <div
-        v-for="(question, index) in questions"
-        :key="index"
-        class="flex flex-row justify-between w-full p-2 border border-gray-200 hover:bg-gray-50 rounded-xl"
-      >
-        <div class="flex flex-col items-left">>
-          <div class="flex flex-row items-center justify-between w-full space-x-4">
-            <span class="text-base font-medium">{{ question.author.attributes.fullName }}</span>>
-              <p class="text-sm text-gray-700">{{ question.body }}</p>
-          </div>
-          <div class="flex items-center justify-center h-full px-2">
-          <button
-            v-if="currentUserQuestionIds.includes(question.id)"
-            @click="deleteQuestion(question.id)"
-            class="main-btn"
-          >
-            Eliminar
-          </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="flex justify-center w-full py-4">
-      <button
-        v-if="isCurrentUserStudent && reviewsTab && !currentUserReviewId && !questionsTab"
-        @click="openReviewModal = true"
-        class="course-btn"
-      >
-        Dejar review
-      </button>
-      <button
-        v-else-if="!isCurrentUserStudent && !reviewsTab && !questionsTab"
-        @click="registerCourse"
-        class="course-btn"
-      >
-        Inscribirse
-      </button>
-      <button
-        v-else-if="isCurrentUserStudent && !reviewsTab && questionsTab"
-        @click="openQuestionModal = true"
-        class="course-btn"
-      >
-        Dejar Pregunta
-      </button>
     </div>
     <review-modal
       @cancel="openReviewModal = false"
@@ -190,23 +83,27 @@
 
 <script>
 import coursesApi from '../../api/courses';
-import ReviewModal from '../review-modal.vue';
-import reviewsApi from '../../api/reviews';
-import ReviewRating from '../review-rating.vue';
-import QuestionModal from '../questions/question-modal.vue';
 import questionsApi from '../../api/questions';
+import reviewsApi from '../../api/reviews';
+import ReviewModal from '../reviews/review-modal.vue';
+import QuestionModal from '../questions/question-modal.vue';
+import ReviewRating from '../reviews/review-rating.vue';
+import QuestionsList from '../questions/questions-list.vue';
+import ReviewsList from '../reviews/reviews-list.vue';
+import CourseLecturesList from '../courses/course-lectures-list.vue';
 
 export default {
   name: 'CourseInfo',
-  components: { ReviewModal, ReviewRating, QuestionModal },
+  components: { ReviewModal, ReviewRating, QuestionModal, QuestionsList, ReviewsList, CourseLecturesList },
   props: {
     course: { type: Object, required: true },
     currentUser: { type: Object, required: true },
   },
   data() {
     return {
-      reviewsTab: false,
+      reviewsTab: true,
       questionsTab: false,
+      lecturesTab: false,
       openReviewModal: false,
       openQuestionModal: false,
       reviews: [],
@@ -214,22 +111,16 @@ export default {
     };
   },
   async created() {
-    this.reviews = await reviewsApi.getAll(this.course.id);
-    this.questions = await questionsApi.getAll(this.course.id);
+    const getQuestions = async () => { this.questions = await questionsApi.getAll(this.course.id); };
+    const getReviews = async () => { this.reviews = await reviewsApi.getAll(this.course.id); };
+
+    Promise.all([getQuestions(), getReviews()]);
   },
   computed: {
     isCurrentUserStudent() {
       return !!this.course.students.find(
         (user) => user.attributes.id === this.currentUser.id,
       );
-    },
-    currentUserReviewId() {
-      const currentUserReview = this.reviews.find((review) => review.author.attributes.id === this.currentUser.id);
-
-      return currentUserReview && currentUserReview.id;
-    },
-    currentUserQuestionIds() {
-      return this.questions.filter((question) => question.author.attributes.id === this.currentUser.id).map((question) => question.id);
     },
   },
   methods: {
@@ -251,11 +142,7 @@ export default {
       await reviewsApi.delete(this.course.id, id);
       this.reviews = this.reviews.filter((review) => review.id !== id);
     },
-    goToLecture(id) {
-      window.location = `/courses/${this.course.id}/lectures/${id}`;
-    },
     async createQuestion(body) {
-      console.log(body);
       try {
         const response = await questionsApi.create(this.course.id, body);
         this.questions.push(response);
@@ -269,10 +156,29 @@ export default {
       await questionsApi.delete(this.course.id, id);
       this.questions = this.questions.filter((question) => question.id !== id);
     },
-    cambio(){
-      this.questionsTab = !this.questionsTab
-      this.reviewsTab = !this.reviewsTab
-    }
+    goToLecture(id) {
+      window.location = `/courses/${this.course.id}/lectures/${id}`;
+    },
+    handleClick(query) {
+      this.questionsTab = false;
+      this.reviewsTab = false;
+      this.lecturesTab = false;
+
+      if (query === 'questions') {
+        this.questionsTab = true;
+      } else if (query === 'lectures') {
+        this.lecturesTab = true;
+      } else if (query === 'reviews') {
+        this.reviewsTab = true;
+      }
+    },
+    handleModalOpen() {
+      if (this.questionsTab) {
+        this.openQuestionModal = true;
+      } else if (this.reviewsTab) {
+        this.openReviewModal = true;
+      }
+    },
   },
 };
 </script>
