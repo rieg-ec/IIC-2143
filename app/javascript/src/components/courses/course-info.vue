@@ -17,22 +17,25 @@
             :reviews="reviews"
             :text-size="'text-base'"
           />
-          <div class="flex flex-row space-x-4 bg-blue-50">
+          <div class="flex flex-row space-x-4">
             <button
               @click="handleClick('reviews')"
               class="underline"
+              :class="{'opacity-50 no-underline': reviewsTab}"
             >
               Ver reviews
             </button>
             <button
               @click="handleClick('questions')"
               class="underline"
+              :class="{'opacity-50 no-underline': questionsTab}"
             >
               Ver preguntas
             </button>
             <button
               @click="handleClick('lectures')"
               class="underline"
+              :class="{'opacity-50 no-underline': lecturesTab}"
             >
               Ver clases
             </button>
