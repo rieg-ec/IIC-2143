@@ -7,7 +7,15 @@ class LecturesController < ApplicationController
     @lecture = Lecture.find(params[:id])
   end
 
-  def create; end
+  def new
+    @course = Course.includes(:lectures).find(params[:course_id])
+  end
+
+  def create
+    Lecture.create!(lecture_params.merge(course_id: params[:course_id]))
+
+    redirect_to course_path(params[:course_id])
+  end
 
   def destroy; end
 
@@ -15,5 +23,13 @@ class LecturesController < ApplicationController
 
   def lecture
     @lecture ||= Lecture.find(params[:id])
+  end
+
+  def lecture_params
+    params.require(:lecture).permit(
+      :title,
+      :description,
+      :video
+    )
   end
 end

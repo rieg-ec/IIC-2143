@@ -31,9 +31,10 @@ import { InlineSvgPlugin } from 'vue-inline-svg';
 
 import CourseInfo from '../src/components/courses/course-info.vue';
 import CourseCarousel from '../src/components/courses/course-carousel.vue';
-import CourseLecture from '../src/components/courses/course-lecture.vue';
-import CourseCreateForm from '../src/components/courses/course-create-form.vue';
+import Lecture from '../src/components/lectures/lecture.vue';
+import CourseForm from '../src/components/courses/course-form.vue';
 import UserEditForm from '../src/components/users/user-edit-form.vue';
+import LectureForm from '../src/components/lectures/lecture-form.vue';
 
 import '../css/application.css';
 
@@ -41,8 +42,10 @@ Vue.filter('camelizeKeys', (value) => camelizeKeys(value));
 
 Vue.component('course-info', CourseInfo);
 Vue.component('course-carousel', CourseCarousel);
-Vue.component('course-lecture', CourseLecture);
-Vue.component('course-create-form', CourseCreateForm);
+Vue.component('lecture', Lecture);
+Vue.component('course-form', CourseForm);
+Vue.component('lecture-form', LectureForm);
+
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.component('user-edit-form', UserEditForm);
 
