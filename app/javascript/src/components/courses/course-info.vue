@@ -125,8 +125,12 @@ export default {
     };
   },
   async created() {
-    const getQuestions = async () => { this.questions = await questionsApi.getAll(this.course.id); };
-    const getReviews = async () => { this.reviews = await reviewsApi.getAll(this.course.id); };
+    const getQuestions = async () => {
+      this.questions = await questionsApi.getAll(this.course.id);
+    };
+    const getReviews = async () => {
+      this.reviews = await reviewsApi.getAll(this.course.id);
+    };
 
     Promise.all([getQuestions(), getReviews()]);
   },
