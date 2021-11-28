@@ -8,10 +8,10 @@
       <span>Volver</span>
     </button>
     <div class="flex flex-col items-center">
-      <course-lecture
+      <lecture
         :lecture="<%= LectureSerializer.new(@lecture).to_json  %> | camelizeKeys"
       >
-      </course-lecture>  
+      </lecture>  
     </div>
   </div>
 </div>

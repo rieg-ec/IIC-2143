@@ -3,7 +3,7 @@
 FactoryBot.define do
   factory :course do
     name { Faker::Educator.course_name }
-    category { %i[math sports food pets].sample }
+    category { Course::CATEGORIES.sample }
     end_date { DateTime.current + 9.weeks }
     association :teacher, factory: :user
 

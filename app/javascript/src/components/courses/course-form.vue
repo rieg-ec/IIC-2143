@@ -6,9 +6,6 @@
     <form
       class="flex flex-col items-center w-64 space-y-4 sm:w-96"
       @submit.prevent="createCourse"
-      action="/courses"
-      method="post"
-      enctype="multipart/form-data"
     >
       <short-text-input
         class="w-full"
@@ -67,7 +64,7 @@ import NumberInput from '../shared/number-input.vue';
 import FileInput from '../shared/file-input.vue';
 
 export default {
-  name: 'CourseCreateForm',
+  name: 'CourseForm',
   components: { ShortTextInput, BaseInput, NumberInput, FileInput },
   props: {
     categories: { type: Array, required: true },
@@ -83,7 +80,6 @@ export default {
     };
   },
   methods: {
-    // eslint-disable-next-line
     async createCourse() {
       if (!this.validInputs) {
         return alert('Debe llenar todos los campos');
