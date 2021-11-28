@@ -31,6 +31,7 @@ import { InlineSvgPlugin } from 'vue-inline-svg';
 
 import CourseInfo from '../src/components/courses/course-info.vue';
 import CourseCarousel from '../src/components/courses/course-carousel.vue';
+import BookCarousel from '../src/components/books/book-carousel.vue';
 import Lecture from '../src/components/lectures/lecture.vue';
 import CourseForm from '../src/components/courses/course-form.vue';
 import UserEditForm from '../src/components/users/user-edit-form.vue';
@@ -42,6 +43,7 @@ Vue.filter('camelizeKeys', (value) => camelizeKeys(value));
 
 Vue.component('course-info', CourseInfo);
 Vue.component('course-carousel', CourseCarousel);
+Vue.component('book-carousel', BookCarousel);
 Vue.component('lecture', Lecture);
 Vue.component('course-form', CourseForm);
 Vue.component('lecture-form', LectureForm);

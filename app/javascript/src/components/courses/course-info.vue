@@ -88,6 +88,9 @@
       v-if="openQuestionModal"
       :course-id="course.id"
     />
+    <!-- <book-carousel
+      :books=""
+    /> -->
   </div>
 </template>
 
@@ -101,10 +104,11 @@ import ReviewRating from '../reviews/review-rating.vue';
 import QuestionsList from '../questions/questions-list.vue';
 import ReviewsList from '../reviews/reviews-list.vue';
 import CourseLecturesList from '../courses/course-lectures-list.vue';
+import BookCarousel from '../books/book-carousel.vue';
 
 export default {
   name: 'CourseInfo',
-  components: { ReviewModal, ReviewRating, QuestionModal, QuestionsList, ReviewsList, CourseLecturesList },
+  components: { ReviewModal, ReviewRating, QuestionModal, QuestionsList, ReviewsList, CourseLecturesList, BookCarousel },
   props: {
     course: { type: Object, required: true },
     currentUser: { type: Object, required: true },
