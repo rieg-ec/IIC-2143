@@ -1,8 +1,7 @@
-require 'httparty'
-# Use the class methods to get down to business quickly
-response = HTTParty.get('https://api.itbook.store/1.0/')
+# frozen_string_literal: true
 
-# Or wrap things up in your own class
+require 'httparty'
+
 class ItBook
   include HTTParty
   base_uri 'api.itbook.store'
@@ -11,13 +10,12 @@ class ItBook
     @options = { query: { site: service, page: page } }
   end
 
-  def findBooks(query)
+  def find_books(query)
     books = self.class.get("/1.0/search/#{query}", @options)
-    return books["books"]
+    books['books']
   end
-
 end
 
-it_book = ItBook.new("itbook", 1)
+# it_book = ItBook.new('itbook', 1)
 
-# puts it_book.findBooks("python")
+# puts it_book.find_books("python")
