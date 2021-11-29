@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 
   scope path: '/api' do
     api_version(module: 'Api::V1', path: { value: 'v1' }, defaults: { format: 'json' }) do
+      get :books, to: 'books#index'
       resources :courses, only: %i[index show] do
         resources :reviews, only: %i[index show create destroy]
         resources :questions, only: %i[index create destroy]

@@ -75,6 +75,12 @@
           @lecture-click="goToLecture"
         />
       </div>
+      <h3 class="pt-12 text-xl">
+        Libros relacionados que te pueden gustar:
+      </h3>
+      <book-carousel
+        :subject="course.category"
+      />
     </div>
     <review-modal
       @cancel="openReviewModal = false"
@@ -88,9 +94,6 @@
       v-if="openQuestionModal"
       :course-id="course.id"
     />
-    <!-- <book-carousel
-      :books=""
-    /> -->
   </div>
 </template>
 
@@ -108,7 +111,15 @@ import BookCarousel from '../books/book-carousel.vue';
 
 export default {
   name: 'CourseInfo',
-  components: { ReviewModal, ReviewRating, QuestionModal, QuestionsList, ReviewsList, CourseLecturesList, BookCarousel },
+  components: {
+    ReviewModal,
+    ReviewRating,
+    QuestionModal,
+    QuestionsList,
+    ReviewsList,
+    CourseLecturesList,
+    BookCarousel,
+  },
   props: {
     course: { type: Object, required: true },
     currentUser: { type: Object, required: true },
