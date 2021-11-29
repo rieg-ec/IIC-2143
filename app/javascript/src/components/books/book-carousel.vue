@@ -1,13 +1,13 @@
 <template>
-  <div>
+  <div v-if="!!books">
     <Carousel
       :navigation-enabled="true"
       :autoplay="true"
-      :per-page="perPageLocal"
+      :per-page="5"
     >
       <slide
         class="self-start px-2"
-        v-for="(course, index) in courses"
+        v-for="(book, index) in books"
         :key="index"
       >
         <BookCard
@@ -20,19 +20,27 @@
 
 <script>
 import { Carousel, Slide } from 'vue-carousel';
-import BookCard from '../books/book-card.vue';
+
+import booksApi from '../../api/books.js';
+import BookCard from './book-card.vue';
 
 export default {
-  name: 'CourseCarousel',
+  name: 'CourseBooks',
   components: { Carousel, Slide, BookCard },
   props: {
-    books: { type: Array, required: true },
-    perPage: { type: Number, default: 4 },
+    subject: { type: String, required: true },
   },
-  computed: {
-    perPageLocal() {
-      return this.courses.length > this.perPage ? this.perPage :
-        this.courses.length;
+  data() {
+    return {
+      books: [],
+    };
+  },
+  async created() {
+    this.books = await booksApi.get(this.subject);
+  },
+  methods: {
+    handleClick() {
+      console.log('click');
     },
   },
 };
