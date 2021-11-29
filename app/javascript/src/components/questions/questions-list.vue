@@ -3,7 +3,6 @@
     <div
       v-for="question in questions"
       :key="'question' + question.id"
-      @click="$emit('delete-question', question.id)"
       class="flex flex-row p-2 border border-gray-200 rounded space-x-4"
     >
       <div class="flex items-center justify-center">
