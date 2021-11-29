@@ -1,4 +1,4 @@
-<div class="flex items-center justify-center w-full h-screen bg-gray-50">
+<div class="flex items-center justify-center w-full h-full bg-gray-50">
   <div class="container md:max-w-2xl">
     <lecture-form :course="<%= CourseSerializer.new(@course, lectures: true).to_json %> | camelizeKeys"></lecture-form>
   </div>
