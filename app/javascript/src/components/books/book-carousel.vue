@@ -38,10 +38,5 @@ export default {
   async created() {
     this.books = await booksApi.get(this.subject);
   },
-  methods: {
-    handleClick() {
-      console.log('click');
-    },
-  },
 };
 </script>
