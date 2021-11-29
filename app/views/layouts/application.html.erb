@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html class="w-full h-full">
-<div class="allButFooter">
   <head>
     <title>HobbiesApp</title>
     <%= csrf_meta_tags %>
@@ -11,11 +10,13 @@
     <%= javascript_pack_tag 'application' %>
     <%= stylesheet_pack_tag 'application' %>
 
+    <%= favicon_link_tag image_path('red-owl.svg') %>
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
 
   <body class="w-full h-full">
-    <div id="vue-app" class="w-full h-full">
+    <div id="vue-app">
       <div class="flex flex-col items-center w-full h-full">
         <% if current_user %>
           <% if current_page?(profile_users_path) %>
@@ -26,17 +27,11 @@
         <% else %>
           <%= render 'shared/no_user_navigation' %>
         <% end %>
-          <div class="flex-grow w-full h-full max-w-8xl">
-            <%= yield %>
-          </div>
+        <div class="flex-grow w-full h-full max-w-8xl">
+          <%= yield %>
+        </div>
       </div>
     </div>
+    <%= render 'shared/footer' %>
   </body>
-  </div>
-
-  <footer>
-   <div >
-      <%= render 'shared/footer' %>
-    </div>
-  </footer>
 </html>
