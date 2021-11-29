@@ -2,17 +2,17 @@
   <div class="flex flex-col items-center w-full space-y-12">
     <div class="container flex flex-col space-y-12">
       <div class="text-left">
-        <h1 class="w-full text-2xl font-bold">
+        <h1 class="w-full text-2xl font-bold px-2">
           ¡Bienvenido a Hobbies App!
         </h1>
       </div>
-      <div class="flex flex-row items-center justify-between w-full max-w-6xl">
+      <div class="flex flex-row items-center justify-between w-full max-w-6xl px-4">
         <div class="flex flex-col space-y-6">
           <h2 class="text-3xl font-bold">Aprende sin limites.</h2>
           <p class="font-normal text-gray-500">Inscribete en cursos para tus hobbies favoritos, o bien, sube cursos tu mismo.</p>
           <%= link_to 'Crear Curso', new_course_path, class:"self-start main-btn" %>
         </div>
-        <div class="px-8">
+        <div class="px-2">
           <img class="max-h-80" src="<%= image_url('home-bg.png') %>">
         </div>
       </div>
