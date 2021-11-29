@@ -44,16 +44,23 @@
         <button
           @click="handleModalOpen"
           class="main-btn"
-          v-if="!lecturesTab && isCurrentUserStudent"
+          v-if="!lecturesTab && isCurrentUserStudent && !isCurrentUserTeacher"
         >
           {{ questionsTab ? 'Hacer pregunta' : 'Dejar review' }}
         </button>
         <button
           @click="registerCourse"
           class="main-btn"
-          v-if="!isCurrentUserStudent"
+          v-else-if="!isCurrentUserStudent && !isCurrentUserTeacher"
         >
           Inscribirme
+        </button>
+        <button
+          @click="handleCreateLectureClick"
+          class="main-btn"
+          v-else-if="isCurrentUserTeacher"
+        >
+          Agregar clase
         </button>
       </div>
       <div class="w-full">
@@ -151,6 +158,9 @@ export default {
         (user) => user.attributes.id === this.currentUser.id,
       );
     },
+    isCurrentUserTeacher() {
+      return this.course.teacher.attributes.id === this.currentUser.id;
+    },
   },
   methods: {
     async registerCourse() {
@@ -207,6 +217,9 @@ export default {
       } else if (this.reviewsTab) {
         this.openReviewModal = true;
       }
+    },
+    handleCreateLectureClick() {
+      window.location.href = `/courses/${this.course.id}/lectures/new`;
     },
   },
 };
