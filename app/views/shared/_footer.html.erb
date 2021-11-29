@@ -1,20 +1,16 @@
-<nav class="bg-red-500">
-    <div class="flex flex-row items-center justify-between w-full p-5">
-  <div class="flex items-center flex-shrink-0 h-full mr-6 text-white">
-    <%= link_to 'Hobbies App', root_url, class:"font-semibold text-xl tracking-tight" %>
-  </div>
-  <a href="https://github.com/IIC2143-2021-2/grupo-32">
-  <img src="https://cdn-icons-png.flaticon.com/512/733/733609.png" width="30" height="30">
-  </a>
-  <span class='text-white'>
-   IIC2143 - Ingeniería de Software
- </span>
-
-  </div>
-
-    <div class="pt-4 md:flex md:items-center md:justify-center">
-    <span class="text-white">
-        Made with ❤️ by Grupo 32
+<footer class="flex flex-row items-center justify-between px-12 py-12 text-white bg-red-500 lg:px-32 opacity-70">
+  <div class="flex flex-row items-center space-x-8">
+    <span class="text-2xl font-semibold">
+      <%= link_to 'Hobbies App', root_path  %>
     </span>
+    <div class="w-0.5 opacity-40 h-24 border"></div>
+    <div class="flex flex-col space-y-2">
+      <span>IIC2143 - Ingeniería de Software</span>
+      <span>Puedes ver el codigo <a class="underline" href="http://github.com/iic2143-2021-2/grupo-32">aqui</a> :)</span>
+      <span>Made with <span class="pl-1 pr-2">❤️ </span> by grupo 32</span>
     </div>
-</nav>
+  </div>
+  <div>
+    <img src="<%= image_path('white-owl.svg') %>" class="w-36 h-36">
+  </div>
+</footer>
