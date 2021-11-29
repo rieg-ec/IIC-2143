@@ -1,13 +1,9 @@
 # frozen_string_literal: true
 
-module Api
-  module V1
-    class BaseController < ApplicationController
-      include ApiErrorConcern
+class Api::V1::BaseController < ApplicationController
+  include ApiErrorConcern
 
-      self.responder = ApiResponder
+  self.responder = ApiResponder
 
-      respond_to :json
-    end
-  end
+  respond_to :json
 end

@@ -31,3 +31,5 @@ RSpec/NestedGroups:
   Enabled: false
 Lint/UnderscorePrefixedVariableName:
   Enabled: false
+Style/ClassAndModuleChildren:
+  Enabled: false
