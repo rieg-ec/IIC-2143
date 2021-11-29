@@ -51,9 +51,16 @@
         <button
           @click="registerCourse"
           class="main-btn"
-          v-if="!isCurrentUserStudent && !isCurrentUserTeacher"
+          v-else-if="!isCurrentUserStudent && !isCurrentUserTeacher"
         >
           Inscribirme
+        </button>
+        <button
+          @click="handleCreateLectureClick"
+          class="main-btn"
+          v-else-if="isCurrentUserTeacher"
+        >
+          Agregar clase
         </button>
       </div>
       <div class="w-full">
@@ -210,6 +217,9 @@ export default {
       } else if (this.reviewsTab) {
         this.openReviewModal = true;
       }
+    },
+    handleCreateLectureClick() {
+      window.location.href = `/courses/${this.course.id}/lectures/new`;
     },
   },
 };
